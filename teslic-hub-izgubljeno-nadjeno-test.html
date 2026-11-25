@@ -250,17 +250,30 @@ let lostSending = false;
 let lostFormVersion = 0;
 
 function loadTurnstile() {
-  if (window.turnstile) return Promise.resolve(window.turnstile);
   if (!lostScript) {
     lostScript = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-      script.async = true;
-      script.onload = () => {
-        if (window.turnstile) resolve(window.turnstile);
-        else reject(new Error('Turnstile nije dostupan.'));
+      const failed = () => {
+        clearTimeout(timeout);
+        delete window.onTeslicHubTurnstileLoad;
+        script.remove();
+        reject(new Error('Turnstile nije učitan.'));
       };
-      script.onerror = () => reject(new Error('Turnstile nije učitan.'));
+      const timeout = setTimeout(failed, 15000);
+
+      window.onTeslicHubTurnstileLoad = () => {
+        if (typeof window.turnstile?.render !== 'function') {
+          failed();
+          return;
+        }
+        clearTimeout(timeout);
+        delete window.onTeslicHubTurnstileLoad;
+        resolve(window.turnstile);
+      };
+
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTeslicHubTurnstileLoad';
+      script.async = true;
+      script.onerror = failed;
       document.head.append(script);
     }).catch(error => {
       lostScript = undefined;
@@ -295,31 +308,26 @@ async function openLostForm() {
   try {
     const turnstile = await loadTurnstile();
     if (version !== lostFormVersion) return;
-    turnstile.ready(() => {
-      if (version !== lostFormVersion) return;
-      try {
-        lostWidget = turnstile.render('#lostChallenge', {
-          sitekey: lostSiteKey,
-          action: 'izgubljeno_nadjeno',
-          size: 'flexible',
-          callback: token => {
-            if (version !== lostFormVersion) return;
-            setLostToken(token);
-            $('lostFormStatus').textContent = '';
-          },
-          'expired-callback': () => {
-            if (version !== lostFormVersion) return;
-            setLostToken('');
-          },
-          'error-callback': () => {
-            if (version !== lostFormVersion) return;
-            setLostToken('');
-            $('lostFormStatus').textContent = 'Provjera trenutno nije dostupna. Osvježi stranicu i pokušaj ponovo.';
-          },
-        });
-      } catch {
-        $('lostFormStatus').textContent = 'Provjera trenutno nije dostupna. Otvori obrazac ponovo.';
-      }
+    $('lostFormStatus').textContent = 'Dovrši provjeru protiv spama za slanje prijave.';
+    lostWidget = turnstile.render('#lostChallenge', {
+      sitekey: lostSiteKey,
+      action: 'izgubljeno_nadjeno',
+      size: 'flexible',
+      callback: token => {
+        if (version !== lostFormVersion) return;
+        setLostToken(token);
+        $('lostFormStatus').textContent = '';
+      },
+      'expired-callback': () => {
+        if (version !== lostFormVersion) return;
+        setLostToken('');
+        $('lostFormStatus').textContent = 'Provjera je istekla. Dovrši novu provjeru.';
+      },
+      'error-callback': () => {
+        if (version !== lostFormVersion) return;
+        setLostToken('');
+        $('lostFormStatus').textContent = 'Provjera trenutno nije dostupna. Osvježi stranicu i pokušaj ponovo.';
+      },
     });
   } catch {
     if (version === lostFormVersion) {
