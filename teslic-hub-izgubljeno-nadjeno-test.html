@@ -58,10 +58,17 @@
 </form>
 <div id="results" aria-live="polite"></div>
 <section id="lostAdminPanel" class="hide" aria-labelledby="lostAdminHeading">
-  <h3 id="lostAdminHeading">Prijave na čekanju</h3>
+  <h3 id="lostAdminHeading">Upravljanje prijavama</h3>
   <p id="lostAdminStatus" role="status"></p>
-  <div id="lostPending"></div>
   <button class="secondary" type="button" id="lostAdminRefresh">Osvježi prijave</button>
+  <h4>Prijave na čekanju</h4>
+  <div id="lostPending"></div>
+  <h4>Aktivne prijave</h4>
+  <div id="lostActive"></div>
+  <details>
+    <summary>Arhiva prijava</summary>
+    <div id="lostArchive"></div>
+  </details>
 </section>
 </div><div id="lostFormArea" class="hide">
 <form class="form" id="lostForm">
@@ -261,85 +268,122 @@ let lostAdminSaving = false;
 async function loadLostAdmin(message = '') {
   const request = ++lostAdminRequest;
   const panel = $('lostAdminPanel');
-  const list = $('lostPending');
   const status = $('lostAdminStatus');
   const visible = current === lostPage && admin;
   panel.classList.toggle('hide', !visible);
-  list.replaceChildren();
+  for (const id of ['lostPending', 'lostActive', 'lostArchive']) {
+    $(id).replaceChildren();
+  }
   status.textContent = '';
   if (!visible) return;
 
   status.textContent = message || 'Učitavam prijave…';
-  const {data, error} = await supabase
-    .from(tables[lostPage])
-    .select('id,naslov,opis,kategorija,lokacija,tip,kreirano')
-    .eq('status', 'na_cekanju')
-    .order('kreirano', {ascending: true})
-    .limit(50);
-
+  const [pending, active, archive] = await Promise.all([
+    supabase.from(tables[lostPage])
+      .select('id,naslov,opis,kategorija,lokacija,tip,kreirano')
+      .eq('status', 'na_cekanju')
+      .order('kreirano', {ascending: true})
+      .limit(50),
+    supabase.from(tables[lostPage])
+      .select('id,naslov,opis,kategorija,lokacija,tip,istice_u')
+      .eq('status', 'odobreno')
+      .order('istice_u', {ascending: true, nullsFirst: false})
+      .limit(100),
+    supabase.rpc('arhiva_izgubljeno_nadjeno'),
+  ]);
   if (request !== lostAdminRequest) return;
-  if (error) {
-    status.textContent = message
-      ? message + ' Lista se nije osvježila. Pokušaj ponovo.'
-      : 'Učitavanje prijava nije uspjelo. Pokušaj ponovo.';
+
+  status.textContent = message;
+  renderLostAdminRows('lostPending', pending, 'Nema prijava na čekanju.');
+  renderLostAdminRows('lostActive', active, 'Nema aktivnih prijava.');
+  renderLostAdminRows('lostArchive', archive, 'Arhiva je prazna.');
+}
+
+function renderLostAdminRows(id, response, emptyMessage) {
+  const list = $(id);
+  if (response.error || !response.data?.length) {
+    const text = document.createElement('p');
+    text.className = 'small muted';
+    text.textContent = response.error ? 'Učitavanje nije uspjelo. Osvježi prijave.' : emptyMessage;
+    list.append(text);
     return;
   }
 
-  status.textContent = message || (data.length ? '' : 'Nema prijava na čekanju.');
-  for (const prijava of data) {
+  for (const prijava of response.data) {
     const article = document.createElement('article');
     article.className = 'listing';
-    const naslov = document.createElement('h3');
-    naslov.textContent = prijava.naslov;
-    const opis = document.createElement('p');
-    opis.textContent = prijava.opis;
-    const podaci = document.createElement('p');
-    podaci.className = 'small muted';
-    podaci.textContent = [
-      prijava.tip === 'nadjeno' ? 'Nađeno' : 'Izgubljeno',
-      prijava.kategorija,
-      prijava.lokacija,
-      publishedAt(prijava.kreirano),
-    ].filter(Boolean).join(' · ');
-    const actions = document.createElement('div');
-    actions.className = 'listing-actions';
+    const title = document.createElement('h4');
+    title.textContent = prijava.naslov;
+    article.append(title);
 
-    for (const [label, odluka, style] of [
-      ['Odobri', 'odobreno', 'primary'],
-      ['Odbij', 'odbijeno', 'danger'],
-    ]) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = style;
-      button.textContent = label;
-      button.disabled = lostAdminSaving;
-      button.onclick = () => odluciPrijavu(prijava.id, odluka);
-      actions.append(button);
+    if (prijava.opis) {
+      const description = document.createElement('p');
+      description.textContent = prijava.opis;
+      article.append(description);
     }
-    article.append(naslov, opis, podaci, actions);
+
+    const details = document.createElement('p');
+    details.className = 'small muted';
+    const deadline = prijava.vraceno_u
+      ? 'Vraćeno vlasniku: ' + publishedAt(prijava.vraceno_u)
+      : prijava.istice_u
+        ? (id === 'lostArchive' ? 'Isteklo: ' : 'Aktivno do: ') + publishedAt(prijava.istice_u)
+        : publishedAt(prijava.kreirano);
+    details.textContent = [
+      prijava.tip === 'nadjeno' ? 'Nađeno' : 'Izgubljeno',
+      prijava.kategorija, prijava.lokacija, deadline,
+    ].filter(Boolean).join(' · ');
+    article.append(details);
+
+    const actions = id === 'lostPending'
+      ? [['Odobri', 'odobreno', 'primary'], ['Odbij', 'odbijeno', 'danger']]
+      : prijava.vraceno_u
+        ? []
+        : [['Produži za 60 dana', 'produzi', 'secondary'], ['Vraćeno vlasniku', 'vraceno', 'secondary']];
+    if (actions.length) {
+      const controls = document.createElement('div');
+      controls.className = 'listing-actions';
+      for (const [label, action, style] of actions) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = style;
+        button.textContent = label;
+        button.disabled = lostAdminSaving;
+        button.onclick = () => upravljajPrijavom(prijava.id, action);
+        controls.append(button);
+      }
+      article.append(controls);
+    }
     list.append(article);
   }
 }
 
-async function odluciPrijavu(id, odluka) {
-  if (lostAdminSaving || current !== lostPage || !admin) return;
-  if (odluka === 'odbijeno' && !confirm('Odbiti ovu prijavu?')) return;
+const lostAdminActions = {
+  odobreno: {message: 'Prijava je odobrena.'},
+  odbijeno: {prompt: 'Odbiti ovu prijavu?', message: 'Prijava je odbijena.'},
+  produzi: {prompt: 'Produžiti rok za 60 dana?', message: 'Rok je produžen za 60 dana.'},
+  vraceno: {prompt: 'Označiti prijavu kao vraćenu vlasniku i premjestiti je u arhivu?', message: 'Prijava je označena kao vraćena vlasniku.'},
+};
 
-  const status = $('lostAdminStatus');
+async function upravljajPrijavom(id, action) {
+  if (lostAdminSaving || current !== lostPage || !admin) return;
+  const settings = lostAdminActions[action];
+  if (settings.prompt && !confirm(settings.prompt)) return;
+
   const request = lostAdminRequest;
   lostAdminSaving = true;
-  $('lostAdminRefresh').disabled = true;
-  $('lostPending').querySelectorAll('button').forEach(button => { button.disabled = true; });
-  status.textContent = 'Spremam odluku…';
+  $('lostAdminPanel').querySelectorAll('button').forEach(button => { button.disabled = true; });
+  $('lostAdminStatus').textContent = 'Spremam izmjenu…';
+  const decision = action === 'odobreno' || action === 'odbijeno';
   let message;
   try {
-    const {error} = await supabase.rpc('odluci_izgubljeno_nadjeno', {
-      p_prijava_id: id,
-      p_odluka: odluka,
-    });
-    message = error ? 'Odluka nije sačuvana. Provjeri stanje prijave i pokušaj ponovo.'
-      : odluka === 'odobreno' ? 'Prijava je odobrena.' : 'Prijava je odbijena.';
-    if (!error && odluka === 'odobreno' && current === lostPage) void loadPosts();
+    const {error} = await supabase.rpc(
+      decision ? 'odluci_izgubljeno_nadjeno' : 'upravljaj_izgubljeno_nadjeno',
+      {p_prijava_id: id, [decision ? 'p_odluka' : 'p_radnja']: action},
+    );
+    message = error ? 'Izmjena nije sačuvana. Provjeri stanje prijave i pokušaj ponovo.'
+      : settings.message;
+    if (!error && action !== 'odbijeno' && current === lostPage) void loadPosts();
   } catch {
     message = 'Veza je prekinuta. Provjeri stanje prijave prije ponovnog pokušaja.';
   } finally {
