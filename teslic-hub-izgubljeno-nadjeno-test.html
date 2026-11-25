@@ -15,7 +15,48 @@
   width: 100%;
 }
 
-</style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel"><h2>📰 Najnovije vijesti iz Teslića</h2><p class="muted">Ovdje ćemo prikazivati provjerene lokalne vijesti kada povežemo izvor.</p><button class="secondary" data-page="Vijesti">Pogledaj vijesti →</button></div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2><div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><div id="results"></div>
+.lost-filters {
+  margin: 12px 0 20px;
+}
+.lost-filter-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 10px;
+}
+.lost-filter-fields label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.lost-filter-fields :is(input, select) {
+  box-sizing: border-box;
+  width: 100%;
+}
+.lost-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+</style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel"><h2>📰 Najnovije vijesti iz Teslića</h2><p class="muted">Ovdje ćemo prikazivati provjerene lokalne vijesti kada povežemo izvor.</p><button class="secondary" data-page="Vijesti">Pogledaj vijesti →</button></div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2><div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><form class="form lost-filters hide" id="lostFilters" aria-label="Pretraga prijava">
+  <div class="lost-filter-fields">
+    <label>Naziv predmeta<input name="naslov" type="search" maxlength="120"></label>
+    <label>Kategorija<select name="kategorija"><option value="">Sve kategorije</option></select></label>
+    <label>Lokacija<input name="lokacija" type="search" maxlength="120"></label>
+    <label>Datum prijave<input name="datum" type="date" min="2000-01-01" max="2099-12-31"></label>
+    <label>Vrsta prijave
+      <select name="tip">
+        <option value="">Sve vrste</option>
+        <option value="izgubljeno">Izgubljeno</option>
+        <option value="nadjeno">Nađeno</option>
+      </select>
+    </label>
+  </div>
+  <div class="lost-filter-actions">
+    <button class="primary" type="submit">Pretraži</button>
+    <button class="secondary" type="reset">Poništi filtere</button>
+  </div>
+</form>
+<div id="results" aria-live="polite"></div>
 <section id="lostAdminPanel" class="hide" aria-labelledby="lostAdminHeading">
   <h3 id="lostAdminHeading">Prijave na čekanju</h3>
   <p id="lostAdminStatus" role="status"></p>
@@ -73,8 +114,77 @@ $('authForm').onsubmit=async e=>{e.preventDefault();const email=$('authEmail').v
 $('signUp').onclick=async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<8){message('Unesi e-mail i lozinku od najmanje 8 znakova.',true);return}message('Šaljem zahtjev za registraciju...');const {error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:'https://stenjak.github.io/teslic-hub/'}});message(error?'Registracija nije uspjela: '+error.message:'Provjeri e-mail i potvrdi registraciju putem linka.',!!error)};
 $('resetPassword').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){message('Prvo unesi e-mail adresu.',true);return}const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:'https://stenjak.github.io/teslic-hub/'});message(error?error.message:'Ako račun postoji, dobit ćeš e-mail za resetovanje lozinke.',!!error)};
 supabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>refreshUser(),0)});
-async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];$('results').textContent='';current=page;editingId=null;void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
-async function loadPosts(){if(!tables[current])return;const page=current;const {data,error}=await supabase.from(tables[page]).select(page===lostPage?'id,naslov,opis,kategorija,lokacija,tip,kreirano':'*').eq('status','odobreno').order('kreirano',{ascending:false}).limit(100);if(current!==page)return;if(error){$('results').textContent='Greška pri učitavanju: '+error.message;return}posts=data||[];render();await loadPublicPhotos()}
+async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
+let postsRequest = 0;
+let lostFilters = {};
+const sarajevoDateOffset = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Sarajevo',
+  timeZoneName: 'longOffset',
+});
+
+function sarajevoDayStart(date) {
+  const midnight = new Date(date + 'T00:00:00Z');
+  const offset = sarajevoDateOffset.formatToParts(midnight)
+    .find(part => part.type === 'timeZoneName').value.slice(3);
+  return new Date(date + 'T00:00:00' + offset).toISOString();
+}
+
+function applyLostFilters(query, filters) {
+  for (const column of ['naslov', 'lokacija']) {
+    const value = filters[column]?.trim();
+    if (value) {
+      const literal = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      query = query.filter(column, 'imatch', literal);
+    }
+  }
+  for (const column of ['kategorija', 'tip']) {
+    if (filters[column]) query = query.eq(column, filters[column]);
+  }
+  if (filters.datum) {
+    const next = new Date(filters.datum + 'T00:00:00Z');
+    next.setUTCDate(next.getUTCDate() + 1);
+    query = query
+      .gte('kreirano', sarajevoDayStart(filters.datum))
+      .lt('kreirano', sarajevoDayStart(next.toISOString().slice(0, 10)));
+  }
+  return query;
+}
+
+async function loadPosts() {
+  const page = current;
+  if (!tables[page]) return;
+  const request = ++postsRequest;
+  const lost = page === lostPage;
+  let query = supabase.from(tables[page])
+    .select(lost ? 'id,naslov,opis,kategorija,lokacija,tip,kreirano' : '*')
+    .eq('status', 'odobreno');
+  if (lost) query = applyLostFilters(query, lostFilters);
+  const {data, error} = await query.order('kreirano', {ascending: false}).limit(100);
+  if (request !== postsRequest || current !== page) return;
+  if (error) {
+    $('results').textContent = 'Greška pri učitavanju: ' + error.message;
+    return;
+  }
+  posts = data || [];
+  render();
+  await loadPublicPhotos();
+}
+
+const lostFilterForm = $('lostFilters');
+for (const option of $('lostForm').elements.kategorija.options) {
+  if (option.value) lostFilterForm.elements.kategorija.append(new Option(option.text, option.value));
+}
+lostFilterForm.addEventListener('submit', event => {
+  event.preventDefault();
+  lostFilters = Object.fromEntries(new FormData(lostFilterForm));
+  $('results').textContent = 'Pretražujem prijave…';
+  void loadPosts();
+});
+lostFilterForm.addEventListener('reset', () => {
+  lostFilters = {};
+  $('results').textContent = 'Učitavam prijave…';
+  void loadPosts();
+});
 const photoCache=new Map();
 function photoPaths(p){return Array.isArray(p.slike)?p.slike.filter(x=>typeof x==='string'&&x.startsWith(p.korisnik_id+'/')).slice(0,5):[]}
 async function loadPublicPhotos(){
@@ -143,7 +253,7 @@ function publishedAt(value){
   const part=type=>parts.find(x=>x.type===type)?.value||'';
   return `${part('day')}-${part('month')}-${part('year')} u ${part('hour')}:${part('minute')}`;
 }
-function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported?'':'none';$('add').textContent=current===lostPage?'Prijavi izgubljeno ili nađeno':'+ Dodaj objavu';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')+' '+(p.kategorija||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+'<p>'+esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+(current===lostPage?'':' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden'))+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+'</p>':'')+((current!==lostPage&&(own||admin))?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!</div>'}
+function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported&&current!==lostPage?'':'none';$('add').textContent=current===lostPage?'Prijavi izgubljeno ili nađeno':'+ Dodaj objavu';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=current===lostPage?'':$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')+' '+(p.kategorija||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+'<p>'+esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+(current===lostPage?'':' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden'))+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+(p.kategorija?' · '+esc(p.kategorija):'')+'</p>':'')+((current!==lostPage&&(own||admin))?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">'+(current===lostPage&&Object.values(lostFilters).some(value=>value.trim())?'Nema prijava koje odgovaraju pretrazi.':'Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!')+'</div>'}
 document.addEventListener('click',async e=>{const pic=e.target.closest('[data-photo]');if(pic){$('photoLarge').src=pic.dataset.photo;$('photoModal').classList.remove('hide');return}const b=e.target.closest('[data-page]');if(b){navigate(b.dataset.page);return}const del=e.target.closest('[data-delete]');if(del){const id=del.dataset.delete,p=posts.find(x=>x.id===id);if(!p||!user||!(admin||p.korisnik_id===user.id))return;if(!confirm('Trajno obrisati ovu objavu?'))return;const {error}=await supabase.from(tables[current]).delete().eq('id',id);if(error)alert('Brisanje nije uspjelo: '+error.message);else await loadPosts()}const edit=e.target.closest('[data-edit]');if(edit){const p=posts.find(x=>x.id===edit.dataset.edit);if(!p||!user||p.korisnik_id!==user.id)return;editingId=p.id;$('postForm').elements.title.value=title(p);$('postForm').elements.description.value=p.opis||'';$('postForm').elements.contact.value=p.kontakt||p.telefon||p.email||'';$('postForm').elements.location.value=p.lokacija||p.adresa||'Teslić';$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('lostType').value=p.tip||'izgubljeno';$('savePost').textContent='Sačuvaj izmjene';setPhotoForm();setJobForm();setBusinessForm();if(current==='Biznisi'){$('businessCategory').value=p.kategorija||'';$('businessHours').value=p.radno_vrijeme||'';$('businessEmail').value=p.email||'';$('businessWeb').value=p.web_stranica||''}if(current==='Poslovi'){$('jobCompany').value=p.firma||'';$('jobType').value=p.vrsta_zaposlenja||''}if(current==='Oglasi')prepareExistingPhotos(p);$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')}});
 let lostAdminRequest = 0;
 let lostAdminSaving = false;
