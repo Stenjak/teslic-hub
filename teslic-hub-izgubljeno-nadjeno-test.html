@@ -58,6 +58,20 @@
   width: 100%;
   box-sizing: border-box;
 }
+#lostPhotoPicker {
+  min-width: 0;
+  border: 1px solid #bfd0df;
+  border-radius: 12px;
+  padding: 12px;
+}
+#lostPhotoPicker input {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.lost-photo-gallery {
+  min-height: 1px;
+  margin: 10px 0;
+}
 </style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel"><h2>📰 Najnovije vijesti iz Teslića</h2><p class="muted">Ovdje ćemo prikazivati provjerene lokalne vijesti kada povežemo izvor.</p><button class="secondary" data-page="Vijesti">Pogledaj vijesti →</button></div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2><div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><form class="form lost-filters hide" id="lostFilters" aria-label="Pretraga prijava">
   <div class="lost-filter-fields">
     <label>Naziv predmeta<input name="naslov" type="search" maxlength="120"></label>
@@ -133,6 +147,15 @@
     <input name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="lostPrivacy">
   </label>
   <p class="small muted" id="lostPrivacy">Tvoj e-mail se čuva privatno. U opisu izostavi lične i kontaktne podatke. Prijava će biti javno vidljiva nakon odobrenja.</p>
+  <fieldset id="lostPhotoPicker">
+    <legend>Fotografije predmeta (neobavezno)</legend>
+    <p class="small muted">Dodaj do tri fotografije. Portal će ih automatski smanjiti. Fotografije ličnih dokumenata i bankovnih kartica su zabranjene.</p>
+    <input id="lostPhotoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Odaberi do tri fotografije">
+    <div class="photo-preview" id="lostPhotoPreview"></div>
+    <button class="secondary hide" id="lostPhotoClear" type="button">Ukloni fotografije</button>
+    <p class="small" id="lostPhotoStatus" role="status"></p>
+  </fieldset>
+  <p class="small muted hide" id="lostDocumentNote">Za lične dokumente unesi samo opis, bez fotografija, JMBG-a ili drugih osjetljivih brojeva.</p>
   <div id="lostChallenge"></div>
   <p id="lostFormStatus" role="status"></p>
   <button class="primary" id="lostSend" type="submit" disabled>Pošalji prijavu</button>
@@ -158,7 +181,7 @@ $('authForm').onsubmit=async e=>{e.preventDefault();const email=$('authEmail').v
 $('signUp').onclick=async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<8){message('Unesi e-mail i lozinku od najmanje 8 znakova.',true);return}message('Šaljem zahtjev za registraciju...');const {error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:'https://stenjak.github.io/teslic-hub/'}});message(error?'Registracija nije uspjela: '+error.message:'Provjeri e-mail i potvrdi registraciju putem linka.',!!error)};
 $('resetPassword').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){message('Prvo unesi e-mail adresu.',true);return}const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:'https://stenjak.github.io/teslic-hub/'});message(error?error.message:'Ako račun postoji, dobit ćeš e-mail za resetovanje lozinke.',!!error)};
 supabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>refreshUser(),0)});
-async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
+async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];stopLostPhotoObserver($('results'));$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
 let postsRequest = 0;
 let lostFilters = {};
 const sarajevoDateOffset = new Intl.DateTimeFormat('en-GB', {
@@ -200,7 +223,7 @@ async function loadPosts() {
   const request = ++postsRequest;
   const lost = page === lostPage;
   let query = supabase.from(tables[page])
-    .select(lost ? 'id,naslov,opis,kategorija,lokacija,tip,kreirano,istice_u' : '*')
+    .select(lost ? 'id,naslov,opis,kategorija,lokacija,tip,kreirano,istice_u,slike' : '*')
     .eq('status', 'odobreno');
   if (lost) query = applyLostFilters(query, lostFilters);
   const {data, error} = await query.order('kreirano', {ascending: false}).limit(100);
@@ -297,7 +320,7 @@ function publishedAt(value){
   const part=type=>parts.find(x=>x.type===type)?.value||'';
   return `${part('day')}-${part('month')}-${part('year')} u ${part('hour')}:${part('minute')}`;
 }
-function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported&&current!==lostPage?'':'none';$('add').textContent=current===lostPage?'Prijavi izgubljeno ili nađeno':'+ Dodaj objavu';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=current===lostPage?'':$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')+' '+(p.kategorija||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+'<p>'+esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+(current===lostPage?'':' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden'))+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+(p.kategorija?' · '+esc(p.kategorija):'')+'</p>':'')+(current===lostPage&&p.istice_u?'<button class="secondary" type="button" data-lost-contact="'+esc(p.id)+'">Kontaktiraj putem portala</button>':'')+((current!==lostPage&&(own||admin))?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">'+(current===lostPage&&Object.values(lostFilters).some(value=>value.trim())?'Nema prijava koje odgovaraju pretrazi.':'Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!')+'</div>'}
+function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported&&current!==lostPage?'':'none';$('add').textContent=current===lostPage?'Prijavi izgubljeno ili nađeno':'+ Dodaj objavu';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=current===lostPage?'':$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')+' '+(p.kategorija||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+(current===lostPage&&lostPhotoPaths(p).length?'<div class="photo-gallery lost-photo-gallery" data-lost-gallery="'+esc(p.id)+'"></div>':'')+'<p>' +esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+(current===lostPage?'':' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden'))+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+(p.kategorija?' · '+esc(p.kategorija):'')+'</p>':'')+(current===lostPage&&p.istice_u?'<button class="secondary" type="button" data-lost-contact="'+esc(p.id)+'">Kontaktiraj putem portala</button>':'')+((current!==lostPage&&(own||admin))?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">'+(current===lostPage&&Object.values(lostFilters).some(value=>value.trim())?'Nema prijava koje odgovaraju pretrazi.':'Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!')+'</div>';if(current===lostPage)observeLostPhotos($('results'),list)}
 document.addEventListener('click',async e=>{const contact=e.target.closest('[data-lost-contact]');if(contact){const post=posts.find(p=>p.id===contact.dataset.lostContact);if(current===lostPage&&post)void openLostContact(post);return}const pic=e.target.closest('[data-photo]');if(pic){$('photoLarge').src=pic.dataset.photo;$('photoModal').classList.remove('hide');return}const b=e.target.closest('[data-page]');if(b){navigate(b.dataset.page);return}const del=e.target.closest('[data-delete]');if(del){const id=del.dataset.delete,p=posts.find(x=>x.id===id);if(!p||!user||!(admin||p.korisnik_id===user.id))return;if(!confirm('Trajno obrisati ovu objavu?'))return;const {error}=await supabase.from(tables[current]).delete().eq('id',id);if(error)alert('Brisanje nije uspjelo: '+error.message);else await loadPosts()}const edit=e.target.closest('[data-edit]');if(edit){const p=posts.find(x=>x.id===edit.dataset.edit);if(!p||!user||p.korisnik_id!==user.id)return;editingId=p.id;$('postForm').elements.title.value=title(p);$('postForm').elements.description.value=p.opis||'';$('postForm').elements.contact.value=p.kontakt||p.telefon||p.email||'';$('postForm').elements.location.value=p.lokacija||p.adresa||'Teslić';$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('lostType').value=p.tip||'izgubljeno';$('savePost').textContent='Sačuvaj izmjene';setPhotoForm();setJobForm();setBusinessForm();if(current==='Biznisi'){$('businessCategory').value=p.kategorija||'';$('businessHours').value=p.radno_vrijeme||'';$('businessEmail').value=p.email||'';$('businessWeb').value=p.web_stranica||''}if(current==='Poslovi'){$('jobCompany').value=p.firma||'';$('jobType').value=p.vrsta_zaposlenja||''}if(current==='Oglasi')prepareExistingPhotos(p);$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')}});
 let lostAdminRequest = 0;
 let lostAdminSaving = false;
@@ -309,6 +332,7 @@ async function loadLostAdmin(message = '') {
   const visible = current === lostPage && admin;
   panel.classList.toggle('hide', !visible);
   for (const id of ['lostPending', 'lostActive', 'lostArchive']) {
+    stopLostPhotoObserver($(id));
     $(id).replaceChildren();
   }
   status.textContent = '';
@@ -317,12 +341,12 @@ async function loadLostAdmin(message = '') {
   status.textContent = message || 'Učitavam prijave…';
   const [pending, active, archive] = await Promise.all([
     supabase.from(tables[lostPage])
-      .select('id,naslov,opis,kategorija,lokacija,tip,kreirano')
+      .select('id,naslov,opis,kategorija,lokacija,tip,kreirano,slike')
       .eq('status', 'na_cekanju')
       .order('kreirano', {ascending: true})
       .limit(50),
     supabase.from(tables[lostPage])
-      .select('id,naslov,opis,kategorija,lokacija,tip,istice_u')
+      .select('id,naslov,opis,kategorija,lokacija,tip,istice_u,slike')
       .eq('status', 'odobreno')
       .order('istice_u', {ascending: true, nullsFirst: false})
       .limit(100),
@@ -371,6 +395,12 @@ function renderLostAdminRows(id, response, emptyMessage) {
       prijava.kategorija, prijava.lokacija, deadline,
     ].filter(Boolean).join(' · ');
     article.append(details);
+    if (lostPhotoPaths(prijava).length) {
+      const gallery = document.createElement('div');
+      gallery.className = 'photo-gallery lost-photo-gallery';
+      gallery.dataset.lostGallery = prijava.id;
+      article.append(gallery);
+    }
 
     const actions = id === 'lostPending'
       ? [['Odobri', 'odobreno', 'primary'], ['Odbij', 'odbijeno', 'danger']]
@@ -385,7 +415,9 @@ function renderLostAdminRows(id, response, emptyMessage) {
         button.type = 'button';
         button.className = style;
         button.textContent = label;
-        button.disabled = lostAdminSaving;
+        const cekajFotografije = action === 'odobreno' && lostPhotoPaths(prijava).length > 0;
+        if (cekajFotografije) button.dataset.lostPhotoApproval = '';
+        button.disabled = lostAdminSaving || cekajFotografije;
         button.onclick = () => upravljajPrijavom(prijava.id, action);
         controls.append(button);
       }
@@ -393,6 +425,7 @@ function renderLostAdminRows(id, response, emptyMessage) {
     }
     list.append(article);
   }
+  observeLostPhotos(list, response.data);
 }
 
 const lostAdminActions = {
@@ -433,6 +466,73 @@ async function upravljajPrijavom(id, action) {
 }
 
 $('lostAdminRefresh').onclick = () => { void loadLostAdmin(); };
+
+const lostPhotoObservers = new WeakMap();
+
+function lostPhotoPaths(post) {
+  if (!Array.isArray(post.slike)) return [];
+  return post.slike.filter(path => typeof path === 'string' &&
+    /^[a-f0-9-]{36}\/[1-3]\.jpg$/.test(path)).slice(0, 3);
+}
+
+function stopLostPhotoObserver(root) {
+  lostPhotoObservers.get(root)?.disconnect();
+  lostPhotoObservers.delete(root);
+}
+
+async function loadLostGallery(gallery, paths) {
+  const {data, error} = await supabase.storage.from('izgubljeno-nadjeno-slike')
+    .createSignedUrls(paths, 300);
+  if (!gallery.isConnected) return;
+  const images = [];
+  for (const item of data || []) {
+    if (!item.signedUrl || item.error) continue;
+    const image = document.createElement('img');
+    image.src = item.signedUrl;
+    image.alt = 'Fotografija prijave ' + (images.length + 1);
+    image.dataset.photo = item.signedUrl;
+    gallery.append(image);
+    images.push(image);
+  }
+  const approval = gallery.parentElement.querySelector('[data-lost-photo-approval]');
+  const loaded = approval
+    ? (await Promise.all(images.map(image => image.decode().then(() => true, () => false)))).filter(Boolean).length
+    : images.length;
+  if (!gallery.isConnected) return;
+  if (!error && loaded === paths.length && approval) approval.disabled = lostAdminSaving;
+  if (error || loaded < paths.length) {
+    const status = document.createElement('p');
+    status.className = 'small muted';
+    status.textContent = approval
+      ? 'Neke fotografije nisu dostupne za pregled. Osvježi prijave prije odobravanja.'
+      : 'Neke fotografije trenutno nisu dostupne.';
+    gallery.append(status);
+  }
+}
+
+function observeLostPhotos(root, entries) {
+  stopLostPhotoObserver(root);
+  const galleries = [...root.querySelectorAll('[data-lost-gallery]')];
+  if (!galleries.length) return;
+  const paths = new Map(entries.map(entry => [entry.id, lostPhotoPaths(entry)]));
+  const load = gallery => {
+    const files = paths.get(gallery.dataset.lostGallery);
+    if (files?.length) void loadLostGallery(gallery, files);
+  };
+  if (typeof IntersectionObserver !== 'function') {
+    galleries.forEach(load);
+    return;
+  }
+  const observer = new IntersectionObserver(results => {
+    for (const result of results) {
+      if (!result.isIntersecting) continue;
+      observer.unobserve(result.target);
+      load(result.target);
+    }
+  }, {rootMargin: '150px'});
+  lostPhotoObservers.set(root, observer);
+  galleries.forEach(gallery => observer.observe(gallery));
+}
 
 let lostScript;
 let lostWidget;
@@ -564,13 +664,116 @@ lostContactForm.onsubmit = async event => {
   }
 };
 
+const lostPhotoFiles = $('lostPhotoFiles');
+const lostPhotoPreview = $('lostPhotoPreview');
+const lostPhotoStatus = $('lostPhotoStatus');
+const lostPhotoClear = $('lostPhotoClear');
+const lostCategory = $('lostForm').elements.kategorija;
+let lostPhotos = [];
+let lostPhotosBusy = false;
+let lostPhotoVersion = 0;
+
+function clearLostPhotos() {
+  lostPhotoVersion++;
+  lostPhotos = [];
+  lostPhotosBusy = false;
+  lostPhotoFiles.value = '';
+  lostPhotoPreview.replaceChildren();
+  lostPhotoClear.classList.add('hide');
+  lostPhotoStatus.textContent = '';
+  setLostToken(lostToken);
+}
+
+function updateLostPhotoPicker() {
+  const documents = lostCategory.value === 'Dokumenti';
+  $('lostPhotoPicker').classList.toggle('hide', documents);
+  $('lostPhotoPicker').disabled = documents || lostSending;
+  $('lostDocumentNote').classList.toggle('hide', !documents);
+  if (documents) clearLostPhotos();
+}
+
+async function optimizeLostPhoto(file) {
+  const image = await createImageBitmap(file);
+  try {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    for (const maxSide of [1500, 1100, 750]) {
+      const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      for (const quality of [0.82, 0.66]) {
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+        if (!blob || blob.size > 600 * 1024) continue;
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(new Error('Fotografija se nije mogla pročitati.'));
+          reader.readAsDataURL(blob);
+        });
+      }
+    }
+    throw new Error('Fotografija je prevelika i nakon smanjivanja.');
+  } finally {
+    image.close();
+  }
+}
+
+lostPhotoFiles.addEventListener('change', async () => {
+  const files = [...lostPhotoFiles.files];
+  clearLostPhotos();
+  if (!files.length) return;
+  if (files.length > 3 || files.some(file => !['image/jpeg', 'image/png', 'image/webp'].includes(file.type))) {
+    lostPhotoStatus.textContent = 'Odaberi najviše tri JPG, PNG ili WebP fotografije.';
+    return;
+  }
+  if (files.some(file => file.size > 20 * 1024 * 1024)) {
+    lostPhotoStatus.textContent = 'Odaberi fotografije manje od 20 MB za smanjivanje.';
+    return;
+  }
+
+  const version = lostPhotoVersion;
+  lostPhotosBusy = true;
+  setLostToken(lostToken);
+  lostPhotoStatus.textContent = 'Smanjujem fotografije…';
+  try {
+    const images = [];
+    for (const file of files) {
+      images.push(await optimizeLostPhoto(file));
+      if (version !== lostPhotoVersion) return;
+    }
+    lostPhotos = images;
+    images.forEach((url, index) => {
+      const preview = document.createElement('img');
+      preview.src = url;
+      preview.alt = 'Odabrana fotografija ' + (index + 1);
+      lostPhotoPreview.append(preview);
+    });
+    lostPhotoClear.classList.remove('hide');
+    lostPhotoStatus.textContent = 'Fotografije su spremne za slanje.';
+  } catch {
+    if (version === lostPhotoVersion) lostPhotoStatus.textContent = 'Fotografije se nisu mogle obraditi. Odaberi ih ponovo.';
+  } finally {
+    if (version === lostPhotoVersion) {
+      lostPhotosBusy = false;
+      setLostToken(lostToken);
+    }
+  }
+});
+
+lostPhotoClear.onclick = clearLostPhotos;
+lostCategory.addEventListener('change', updateLostPhotoPicker);
+
 function setLostToken(token) {
   lostToken = token;
-  $('lostSend').disabled = !token || lostSending;
+  $('lostSend').disabled = !token || lostSending || lostPhotosBusy;
 }
 
 function hideLostForm() {
   lostFormVersion++;
+  clearLostPhotos();
   $('lostFormArea').classList.add('hide');
   if (lostWidget !== undefined) {
     window.turnstile.remove(lostWidget);
@@ -581,6 +784,7 @@ function hideLostForm() {
 
 async function openLostForm() {
   const version = ++lostFormVersion;
+  updateLostPhotoPicker();
   $('lostSend').classList.remove('hide');
   $('listingArea').classList.add('hide');
   $('lostFormArea').classList.remove('hide');
@@ -624,15 +828,17 @@ $('lostCancel').onclick = () => {
 
 $('lostForm').onsubmit = async event => {
   event.preventDefault();
-  if (lostSending || !lostToken || current !== lostPage) return;
+  if (lostSending || lostPhotosBusy || !lostToken || current !== lostPage) return;
 
   const version = lostFormVersion;
   const form = event.currentTarget;
   const status = $('lostFormStatus');
   const fields = Object.fromEntries(new FormData(form));
+  if (lostPhotos.length) fields.slike = lostPhotos.map(url => url.slice(url.indexOf(',') + 1));
   const token = lostToken;
 
   lostSending = true;
+  updateLostPhotoPicker();
   setLostToken('');
   $('lostCancel').disabled = true;
   status.textContent = 'Šaljem prijavu…';
@@ -646,6 +852,7 @@ $('lostForm').onsubmit = async event => {
     if (version !== lostFormVersion) return;
     if (!response.ok) throw new Error(result?.message || 'Slanje prijave nije uspjelo.');
     form.reset();
+    clearLostPhotos();
     if (lostWidget !== undefined) window.turnstile.remove(lostWidget);
     lostWidget = undefined;
     $('lostSend').classList.add('hide');
@@ -658,7 +865,8 @@ $('lostForm').onsubmit = async event => {
     if (lostWidget !== undefined) window.turnstile.reset(lostWidget);
   } finally {
     lostSending = false;
-    $('lostSend').disabled = !lostToken;
+    updateLostPhotoPicker();
+    setLostToken(lostToken);
     $('lostCancel').disabled = false;
   }
 };
