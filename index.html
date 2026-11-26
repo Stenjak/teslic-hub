@@ -111,6 +111,32 @@
 #newsEditorForm > label.checkbox input { width: auto; }
 #newsEditorForm > label.hide { display: none; }
 #bihNewsHeading { margin-top: 22px; }
+.event-controls, .event-map-links, .event-month-controls {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 9px;
+}
+.event-controls { margin: 12px 0 16px; }
+.event-controls [aria-pressed="true"], .event-day[aria-pressed="true"] {
+  background: #07548d; color: #fff;
+}
+.event-home-list { margin: 0 0 12px; padding: 0; list-style: none; }
+.event-home-list li { padding: 9px 0; border-top: 1px solid #e0eaf2; }
+.event-home-list .small { display: block; margin-top: 3px; }
+.event-month-controls { justify-content: space-between; margin-bottom: 12px; }
+.event-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.event-weekday { text-align: center; font-size: .8rem; }
+.event-day {
+  min-height: 42px; padding: 3px; border: 1px solid #c6dced;
+  border-radius: 7px; background: white; color: #102441; cursor: pointer;
+}
+.event-day.has-events { border-color: #0874c5; background: #eaf5ff; font-weight: 700; }
+.event-day small { display: block; }
+#eventCalendarDay { margin-top: 18px; }
+#eventEditorForm > label { display: grid; gap: 6px; min-width: 0; }
+#eventEditorForm > label > :is(input, textarea) { width: 100%; box-sizing: border-box; }
+#eventEditorForm > label.checkbox { display: flex; align-items: center; }
+#eventEditorForm > label.checkbox input { width: auto; }
+#eventEditorForm > label.hide { display: none; }
+#eventDetailText { white-space: pre-wrap; overflow-wrap: anywhere; }
 </style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel" id="homeNews">
   <h2>Najnovije vijesti</h2>
   <div class="news-groups">
@@ -124,7 +150,11 @@
     </section>
   </div>
   <button class="secondary" data-page="Vijesti">Sve vijesti</button>
-</div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2>
+</div><div class="panel">
+  <h2>Najbliži događaji u Tesliću</h2>
+  <ul class="event-home-list" id="homeEvents"><li>Učitavam događaje…</li></ul>
+  <button class="secondary" data-page="Događaji">Svi događaji</button>
+</div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2>
 <div id="newsArea" class="hide">
   <button class="primary hide" id="newsAdd" type="button">Dodaj vijest</button>
   <p class="small" id="newsUpdateStatus" role="status"></p>
@@ -141,6 +171,30 @@
     <button class="secondary hide" id="moreBihNews" type="button">Još vijesti iz BiH</button>
   </section>
 </div>
+<section id="eventArea" class="hide">
+  <button class="primary" id="eventAdd" type="button">Najavi događaj</button>
+  <p class="small" id="eventUpdateStatus" role="status"></p>
+  <div class="event-controls" aria-label="Prikaz događaja">
+    <button class="secondary" type="button" data-event-mode="upcoming" aria-pressed="true">Predstojeći</button>
+    <button class="secondary" type="button" data-event-mode="calendar" aria-pressed="false">Kalendar</button>
+    <button class="secondary" type="button" data-event-mode="past" aria-pressed="false">Prošli događaji</button>
+  </div>
+  <div id="eventListPanel">
+    <div id="eventList"></div>
+    <p class="small muted" id="eventListStatus" role="status"></p>
+    <button class="secondary hide" id="eventMore" type="button">Učitaj još</button>
+  </div>
+  <div id="eventCalendar" class="hide">
+    <div class="event-month-controls">
+      <button class="secondary" id="eventPreviousMonth" type="button" aria-label="Prethodni mjesec">‹</button>
+      <strong id="eventMonthLabel"></strong>
+      <button class="secondary" id="eventNextMonth" type="button" aria-label="Sljedeći mjesec">›</button>
+    </div>
+    <div class="event-calendar-grid" id="eventCalendarGrid"></div>
+    <p class="small muted" id="eventCalendarStatus" role="status"></p>
+    <div id="eventCalendarDay"></div>
+  </div>
+</section>
 <div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><form class="form lost-filters hide" id="lostFilters" aria-label="Pretraga prijava">
   <div class="lost-filter-fields">
     <label>Naziv predmeta<input name="naslov" type="search" maxlength="120"></label>
@@ -250,7 +304,46 @@
   <button class="primary" id="lostSend" type="submit" disabled>Pošalji prijavu</button>
   <button type="button" class="secondary" id="lostCancel">Nazad na objave</button>
 </form>
-</div><div id="formArea" class="hide"><form class="form" id="postForm"><div id="businessFields" class="business-fields hide"><label for="businessCategory">🏷️ Djelatnost firme<select id="businessCategory"><option value="">Odaberi djelatnost</option><option>Ugostiteljstvo</option><option>Trgovina</option><option>Građevina</option><option>Usluge</option><option>Auto-servis i transport</option><option>Zdravstvo i ljepota</option><option>Obrazovanje</option><option>Turizam</option><option>Proizvodnja</option><option>Poljoprivreda</option><option>Ostalo</option></select></label><label for="businessHours">🕒 Radno vrijeme<input id="businessHours" maxlength="180" placeholder="Npr. Pon–Pet 08:00–17:00, Sub 09:00–14:00"></label><label for="businessEmail">✉️ E-mail firme<input id="businessEmail" type="email" maxlength="150" placeholder="Npr. info@firma.ba"></label><label for="businessWeb">🌐 Web-stranica<input id="businessWeb" type="url" maxlength="250" placeholder="https://www.firma.ba"></label></div><div id="jobFields" class="job-fields hide"><label for="jobCompany">🏢 Naziv firme<input id="jobCompany" maxlength="120" placeholder="Npr. Firma Teslić d.o.o."></label><label for="jobType">🕒 Vrsta zaposlenja<select id="jobType"><option value="">Odaberi vrstu zaposlenja</option><option value="Puno radno vrijeme">Puno radno vrijeme</option><option value="Nepuno radno vrijeme">Nepuno radno vrijeme</option><option value="Povremeni posao">Povremeni posao</option><option value="Praksa">Praksa</option></select></label></div><input name="title" required maxlength="100" placeholder="Naslov objave"><textarea name="description" required maxlength="2000" placeholder="Opis"></textarea><input name="contact" required maxlength="100" placeholder="Kontakt (telefon ili e-mail)"><input name="location" maxlength="100" placeholder="Lokacija (npr. Teslić)"><div id="adPhotos" class="photo-picker hide"><label for="photoFiles"><b>📷 Fotografije oglasa (do 5)</b></label><input id="photoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="photo-help">Najviše 5 fotografija. Možeš odabrati glavnu. Svaka fotografija do 2 MB; automatski ćemo pokušati smanjiti veće slike.</p><div id="photoPreview" class="photo-preview"></div><p id="photoStatus" class="photo-help" role="status"></p></div><select id="lostType" class="hide"><option value="izgubljeno">Izgubljeno</option><option value="nadjeno">Nađeno</option></select><button class="primary" id="savePost">Objavi javno</button><button type="button" class="secondary" id="cancel">Odustani</button></form><p class="small muted">Objava će biti javno vidljiva odmah nakon slanja. Ne objavljuj privatne podatke drugih osoba.</p></div></section></div><aside class="side"><section class="sidebox emergency"><h2>☎ Hitni brojevi – 24/7</h2><a href="tel:122">🛡️ Policija <strong>122</strong></a><a href="tel:124">🚑 Hitna pomoć <strong>124</strong></a><a href="tel:123">🚒 Vatrogasci <strong>123</strong></a></section><section class="sidebox radio"><span class="live">● UŽIVO</span><h2>🎙️ Radio Studio M Teslić</h2><p class="small">Lokalni radio • Slušaj uživo</p><div class="bars" id="bars"></div><div class="controls"><button id="play" aria-label="Pokreni radio">▶</button><span>🔊</span><input id="volume" type="range" min="0" max="100" value="70" aria-label="Jačina zvuka"></div><p id="radioStatus" class="small">Pritisni ▶ za pokušaj reprodukcije.</p><audio id="audio" preload="none" src="https://stream.leftor.com/proxy/studiom2/m3u8"></audio></section><section class="sidebox weather"><h2>🌤️ Vrijeme u Tesliću</h2><div id="weatherNow" aria-live="polite"><p class="muted">Učitavam vremensku prognozu...</p></div><div id="weatherDays" class="weather-days"></div><p id="weatherUpdated" class="small muted"></p><button id="weatherRefresh" class="secondary" type="button">🔄 Osvježi prognozu</button><p class="small muted">Podaci: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p></section></aside></main><footer class="footer">♡ Teslić – naš grad, naša zajednica</footer><dialog class="lost-contact-dialog" id="newsDetail" aria-labelledby="newsDetailTitle">
+</div><div id="formArea" class="hide"><form class="form" id="postForm"><div id="businessFields" class="business-fields hide"><label for="businessCategory">🏷️ Djelatnost firme<select id="businessCategory"><option value="">Odaberi djelatnost</option><option>Ugostiteljstvo</option><option>Trgovina</option><option>Građevina</option><option>Usluge</option><option>Auto-servis i transport</option><option>Zdravstvo i ljepota</option><option>Obrazovanje</option><option>Turizam</option><option>Proizvodnja</option><option>Poljoprivreda</option><option>Ostalo</option></select></label><label for="businessHours">🕒 Radno vrijeme<input id="businessHours" maxlength="180" placeholder="Npr. Pon–Pet 08:00–17:00, Sub 09:00–14:00"></label><label for="businessEmail">✉️ E-mail firme<input id="businessEmail" type="email" maxlength="150" placeholder="Npr. info@firma.ba"></label><label for="businessWeb">🌐 Web-stranica<input id="businessWeb" type="url" maxlength="250" placeholder="https://www.firma.ba"></label></div><div id="jobFields" class="job-fields hide"><label for="jobCompany">🏢 Naziv firme<input id="jobCompany" maxlength="120" placeholder="Npr. Firma Teslić d.o.o."></label><label for="jobType">🕒 Vrsta zaposlenja<select id="jobType"><option value="">Odaberi vrstu zaposlenja</option><option value="Puno radno vrijeme">Puno radno vrijeme</option><option value="Nepuno radno vrijeme">Nepuno radno vrijeme</option><option value="Povremeni posao">Povremeni posao</option><option value="Praksa">Praksa</option></select></label></div><input name="title" required maxlength="100" placeholder="Naslov objave"><textarea name="description" required maxlength="2000" placeholder="Opis"></textarea><input name="contact" required maxlength="100" placeholder="Kontakt (telefon ili e-mail)"><input name="location" maxlength="100" placeholder="Lokacija (npr. Teslić)"><div id="adPhotos" class="photo-picker hide"><label for="photoFiles"><b>📷 Fotografije oglasa (do 5)</b></label><input id="photoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="photo-help">Najviše 5 fotografija. Možeš odabrati glavnu. Svaka fotografija do 2 MB; automatski ćemo pokušati smanjiti veće slike.</p><div id="photoPreview" class="photo-preview"></div><p id="photoStatus" class="photo-help" role="status"></p></div><select id="lostType" class="hide"><option value="izgubljeno">Izgubljeno</option><option value="nadjeno">Nađeno</option></select><button class="primary" id="savePost">Objavi javno</button><button type="button" class="secondary" id="cancel">Odustani</button></form><p class="small muted">Objava će biti javno vidljiva odmah nakon slanja. Ne objavljuj privatne podatke drugih osoba.</p></div></section></div><aside class="side"><section class="sidebox emergency"><h2>☎ Hitni brojevi – 24/7</h2><a href="tel:122">🛡️ Policija <strong>122</strong></a><a href="tel:124">🚑 Hitna pomoć <strong>124</strong></a><a href="tel:123">🚒 Vatrogasci <strong>123</strong></a></section><section class="sidebox radio"><span class="live">● UŽIVO</span><h2>🎙️ Radio Studio M Teslić</h2><p class="small">Lokalni radio • Slušaj uživo</p><div class="bars" id="bars"></div><div class="controls"><button id="play" aria-label="Pokreni radio">▶</button><span>🔊</span><input id="volume" type="range" min="0" max="100" value="70" aria-label="Jačina zvuka"></div><p id="radioStatus" class="small">Pritisni ▶ za pokušaj reprodukcije.</p><audio id="audio" preload="none" src="https://stream.leftor.com/proxy/studiom2/m3u8"></audio></section><section class="sidebox weather"><h2>🌤️ Vrijeme u Tesliću</h2><div id="weatherNow" aria-live="polite"><p class="muted">Učitavam vremensku prognozu...</p></div><div id="weatherDays" class="weather-days"></div><p id="weatherUpdated" class="small muted"></p><button id="weatherRefresh" class="secondary" type="button">🔄 Osvježi prognozu</button><p class="small muted">Podaci: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p></section></aside></main><footer class="footer">♡ Teslić – naš grad, naša zajednica</footer><dialog class="lost-contact-dialog" id="eventDetail" aria-labelledby="eventDetailTitle">
+  <h3 id="eventDetailTitle"></h3>
+  <p id="eventDetailTime"></p>
+  <p id="eventDetailAddress"></p>
+  <p id="eventDetailPrice"></p>
+  <div class="event-map-links">
+    <a class="secondary" id="eventMap" target="_blank" rel="noopener noreferrer">Karta</a>
+    <a class="secondary" id="eventDirections" target="_blank" rel="noopener noreferrer">Kako doći</a>
+  </div>
+  <div class="news-photo" id="eventDetailPhoto"></div>
+  <p id="eventDetailText"></p>
+  <div class="event-controls">
+    <button class="secondary hide" id="eventDetailEdit" type="button">Uredi događaj</button>
+    <button class="secondary" id="eventDetailClose" type="button">Zatvori</button>
+  </div>
+</dialog>
+<dialog class="lost-contact-dialog" id="eventEditor" aria-labelledby="eventEditorTitle">
+  <h3 id="eventEditorTitle">Najavi događaj</h3>
+  <form class="form" id="eventEditorForm">
+    <label>Naziv događaja<input name="naslov" required maxlength="160"></label>
+    <label>Adresa<input name="adresa" required maxlength="250" placeholder="Ulica i mjesto"></label>
+    <label>Početak<input name="pocinje" type="datetime-local" required min="2000-01-01T00:00" max="2099-12-31T23:59" aria-describedby="eventZone"></label>
+    <label>Završetak (neobavezno)<input name="zavrsava" type="datetime-local" min="2000-01-01T00:00" max="2099-12-31T23:59" aria-describedby="eventZone"></label>
+    <p class="small muted" id="eventZone">Unesi vrijeme u Tesliću. Bez upisanog završetka događaj ostaje aktivan do kraja tog dana.</p>
+    <label>Cijena ulaza (KM)<input name="cijena" type="number" min="0" max="99999999.99" step="0.01" value="0" required aria-describedby="eventFree"></label>
+    <p class="small muted" id="eventFree">Za besplatan ulaz ostavi 0 KM.</p>
+    <label>Opis<textarea name="opis" required maxlength="6000" rows="5"></textarea></label>
+    <label>Fotografija (neobavezno)<input id="eventEditorPhoto" type="file" accept="image/jpeg,image/png,image/webp"></label>
+    <label class="checkbox hide" id="eventRemovePhotoLabel">
+      <input type="checkbox" id="eventRemovePhoto"> Ukloni postojeću fotografiju
+    </label>
+    <div class="news-photo" id="eventEditorPreview"></div>
+    <p class="small" id="eventEditorStatus" role="status"></p>
+    <div class="lost-filter-actions">
+      <button class="primary" id="eventSave" type="submit">Objavi događaj</button>
+      <button class="secondary" id="eventEditorClose" type="button">Odustani</button>
+    </div>
+  </form>
+</dialog>
+<dialog class="lost-contact-dialog" id="newsDetail" aria-labelledby="newsDetailTitle">
   <h3 id="newsDetailTitle"></h3>
   <p id="newsDetailMeta"></p>
   <div class="news-photo" id="newsDetailPhoto"></div>
@@ -262,6 +355,7 @@ import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
 const supabase=createClient('https://mdwzlyfzioxlavkthzul.supabase.co','sb_publishable_s1CpP6P94Urmfu4w6dJtFQ_-qh-CXi5');
 const lostPage = 'Izgubljeno – Nađeno';
 const newsPage = 'Vijesti';
+const eventPage = 'Događaji';
 const lostEndpoint = 'https://mdwzlyfzioxlavkthzul.supabase.co/functions/v1/zaprimi-izgubljeno-nadjeno';
 const lostSiteKey = '0x4AAAAAAGS_pJT70HYXafvB';
 const sections=['Poslovi','Oglasi','Biznisi','Izgubljeno – Nađeno'];
@@ -271,14 +365,14 @@ let current='home',user=null,admin=false,posts=[],editingId=null;let photoUrls=[
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function message(txt,bad=false){$('authMessage').textContent=txt;$('authMessage').className='message '+(bad?'error':'success')}
 function openAuth(){ $('authBox').classList.remove('hide');$('authBox').scrollIntoView({behavior:'smooth',block:'start'}) }
-async function refreshUser(){const prethodniAdmin=admin;const {data:{user:u}}=await supabase.auth.getUser();user=u;admin=false;if(user){const {data}=await supabase.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();admin=!!data} $('account').textContent=user?'👤 '+(user.email||'Račun')+' · Odjava':'👤 Prijava / Registracija';if(tables[current])render();if(current===newsPage&&prethodniAdmin!==admin)void openNewsPage();void loadLostAdmin()}
+async function refreshUser(){const prethodniAdmin=admin,prethodniKorisnik=user?.id;const {data:{user:u}}=await supabase.auth.getUser();user=u;admin=false;if(user){const {data}=await supabase.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();admin=!!data} $('account').textContent=user?'👤 '+(user.email||'Račun')+' · Odjava':'👤 Prijava / Registracija';if(tables[current])render();if(current===newsPage&&prethodniAdmin!==admin)void openNewsPage();if(current===eventPage&&(prethodniAdmin!==admin||prethodniKorisnik!==user?.id))void showEventMode(eventMode);void loadLostAdmin()}
 $('account').onclick=async()=>{if(user){if(confirm('Želiš li se odjaviti?')){await supabase.auth.signOut();await refreshUser()}}else openAuth()};
 $('closeAuth').onclick=()=>$('authBox').classList.add('hide');
 $('authForm').onsubmit=async e=>{e.preventDefault();const email=$('authEmail').value.trim(),password=$('authPassword').value;message('Prijavljujem...');const {error}=await supabase.auth.signInWithPassword({email,password});if(error){message('Prijava nije uspjela: '+error.message,true);return}message('Uspješno si prijavljen/a.');$('authBox').classList.add('hide');await refreshUser()};
 $('signUp').onclick=async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<8){message('Unesi e-mail i lozinku od najmanje 8 znakova.',true);return}message('Šaljem zahtjev za registraciju...');const {error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:'https://stenjak.github.io/teslic-hub/'}});message(error?'Registracija nije uspjela: '+error.message:'Provjeri e-mail i potvrdi registraciju putem linka.',!!error)};
 $('resetPassword').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){message('Prvo unesi e-mail adresu.',true);return}const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:'https://stenjak.github.io/teslic-hub/'});message(error?error.message:'Ako račun postoji, dobit ćeš e-mail za resetovanje lozinke.',!!error)};
 supabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>refreshUser(),0)});
-async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];stopLostPhotoObserver($('results'));$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('newsArea').classList.toggle('hide',page!==newsPage);$('listingArea').classList.toggle('hide',page===newsPage);$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(page===newsPage)void openNewsPage();else if(page==='home')void loadHomeNews();else if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
+async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];stopLostPhotoObserver($('results'));$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('newsArea').classList.toggle('hide',page!==newsPage);$('eventArea').classList.toggle('hide',page!==eventPage);$('listingArea').classList.toggle('hide',page===newsPage||page===eventPage);$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(page===newsPage)void openNewsPage();else if(page===eventPage)void showEventMode('upcoming');else if(page==='home'){void loadHomeNews();void loadHomeEvents()}else if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
 const newsTable = 'teslic_hub_vijesti';
 const newsColumns = 'id,vrsta,podrucje,naslov,tekst,izvor,izvor_url,slika_putanja,objavljeno_u';
 const newsBatchSize = 20;
@@ -356,7 +450,7 @@ function showNewsArticle(row) {
   $('newsDetailTitle').textContent = row.naslov;
   $('newsDetailMeta').replaceChildren(newsMeta(row));
   $('newsDetailText').textContent = row.tekst || '';
-  void showNewsPhoto($('newsDetailPhoto'), row.slika_putanja);
+  void showPortalPhoto($('newsDetailPhoto'), row.slika_putanja);
   $('newsDetail').showModal();
 }
 
@@ -411,7 +505,7 @@ async function loadNewsPage(group, version) {
         const photo = document.createElement('div');
         photo.className = 'news-photo';
         card.append(photo);
-        void showNewsPhoto(photo, row.slika_putanja);
+        void showPortalPhoto(photo, row.slika_putanja);
       }
       card.append(body);
       if (admin) card.append(newsAdminActions(row));
@@ -429,13 +523,13 @@ for (const group of newsGroups) {
 
 const newsPhotoRequests = new WeakMap();
 
-async function showNewsPhoto(container, path) {
+async function showPortalPhoto(container, path, bucket = newsPhotoBucket) {
   const request = {};
   newsPhotoRequests.set(container, request);
   container.replaceChildren();
   if (!path) return;
 
-  const {data, error} = await supabase.storage.from(newsPhotoBucket).createSignedUrl(path, 300);
+  const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 300);
   if (newsPhotoRequests.get(container) !== request) return;
   if (error || !data?.signedUrl) {
     const note = document.createElement('p');
@@ -492,7 +586,7 @@ function showNewsEditorPreview() {
     image.src = newsPreviewUrl;
     preview.append(image);
   } else if (!newsRemovePhoto.checked) {
-    void showNewsPhoto(preview, newsDraft?.row?.slika_putanja);
+    void showPortalPhoto(preview, newsDraft?.row?.slika_putanja);
   }
 }
 
@@ -538,10 +632,10 @@ async function refreshNewsAfterWrite(message) {
   void loadHomeNews();
 }
 
-async function cleanupNewsPhoto(path) {
+async function cleanupPortalPhoto(path, bucket = newsPhotoBucket) {
   if (!path) return true;
   try {
-    const {error} = await supabase.storage.from(newsPhotoBucket).remove([path]);
+    const {error} = await supabase.storage.from(bucket).remove([path]);
     return !error;
   } catch {
     return false;
@@ -601,17 +695,17 @@ newsEditorForm.onsubmit = async event => {
     const result = await query.select('id').maybeSingle();
     if (result.error) {
       if (result.status >= 400 && result.status < 500 && result.status !== 408) {
-        await cleanupNewsPhoto(uploaded);
+        await cleanupPortalPhoto(uploaded);
       }
       throw new Error('Spremanje nije potvrđeno. Provjeri listu vijesti prije ponovnog pokušaja.');
     }
     if (!result.data) {
-      await cleanupNewsPhoto(uploaded);
+      await cleanupPortalPhoto(uploaded);
       throw new Error('Vijest je u međuvremenu izmijenjena. Zatvori obrazac i otvori je ponovo.');
     }
 
     const cleaned = !previous || previous === payload.slika_putanja
-      || await cleanupNewsPhoto(previous);
+      || await cleanupPortalPhoto(previous);
     newsEditor.close();
     const message = draft.row ? 'Izmjene su sačuvane.' : 'Vijest je objavljena.';
     void refreshNewsAfterWrite(cleaned ? message : message + ' Stara fotografija ostala je u spremištu.');
@@ -637,7 +731,7 @@ async function deleteManualNews(row) {
       await refreshNewsAfterWrite('Brisanje nije potvrđeno. Provjeri listu vijesti.');
       return;
     }
-    const cleaned = await cleanupNewsPhoto(data.slika_putanja);
+    const cleaned = await cleanupPortalPhoto(data.slika_putanja);
     await refreshNewsAfterWrite(cleaned ? 'Vijest je obrisana.' : 'Vijest je obrisana. Fotografija je ostala u spremištu.');
   } catch {
     await refreshNewsAfterWrite('Veza je prekinuta. Provjeri listu vijesti.');
@@ -645,6 +739,478 @@ async function deleteManualNews(row) {
     newsWriteBusy = false;
   }
 }
+
+const eventTable = 'teslic_hub_dogadjaji';
+const eventPhotoBucket = 'teslic-hub-dogadjaji-slike';
+const eventColumns = 'id,naslov,opis,adresa,pocinje_u,zavrsava_u,aktivno_do,cijena_km,slika_putanja';
+const eventTimeZone = 'Europe/Sarajevo';
+const eventDateParts = new Intl.DateTimeFormat('en-GB', {
+  timeZone: eventTimeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+  hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+});
+const eventMonths = [
+  'Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni',
+  'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar',
+];
+const eventMonthInDate = [
+  'januara', 'februara', 'marta', 'aprila', 'maja', 'juna',
+  'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra',
+];
+const eventWeekdays = ['Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'];
+const eventPageSize = 20;
+
+let eventMode = 'upcoming';
+let eventVersion = 0;
+let homeEventVersion = 0;
+let eventCursor;
+let calendarMonth;
+let calendarRows = [];
+let shownEvent;
+let eventDraft;
+let eventSaving = false;
+let eventPreviewUrl;
+
+function eventLocalInput(value) {
+  if (!value) return '';
+  const p = Object.fromEntries(eventDateParts.formatToParts(new Date(value)).map(part => [part.type, part.value]));
+  return p.year + '-' + p.month + '-' + p.day + 'T' + p.hour + ':' + p.minute;
+}
+
+function eventIsoTime(value, original) {
+  if (original && eventLocalInput(original) === value) return original;
+  const utc = Date.parse(value + 'Z');
+  if (!Number.isFinite(utc)) return null;
+  for (const sample of [utc - 86400000, utc + 86400000]) {
+    const offset = sarajevoDateOffset.formatToParts(new Date(sample))
+      .find(part => part.type === 'timeZoneName').value.slice(3);
+    const candidate = new Date(value + offset);
+    if (Number.isFinite(candidate.getTime()) && eventLocalInput(candidate) === value) {
+      return candidate.toISOString();
+    }
+  }
+  return null;
+}
+
+function eventPrice(row) {
+  const price = Number(row.cijena_km);
+  if (price === 0) return 'Besplatan ulaz';
+  const [marks, cents] = price.toFixed(2).split('.');
+  return marks.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + cents + ' KM';
+}
+
+function eventMonthLabel(month) {
+  const [year, number] = month.split('-');
+  return eventMonths[Number(number) - 1] + ' ' + year + '.';
+}
+
+function eventFullDate(date) {
+  const day = new Date(date + 'T12:00:00Z');
+  return eventWeekdays[day.getUTCDay()] + ', ' + day.getUTCDate() + '. ' +
+    eventMonthInDate[day.getUTCMonth()] + ' ' + day.getUTCFullYear() + '.';
+}
+
+function eventWhen(row) {
+  return publishedAt(row.pocinje_u) + (row.zavrsava_u ? ' – ' + publishedAt(row.zavrsava_u) : '');
+}
+
+function eventTitleButton(row) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'news-title-button';
+  button.textContent = row.naslov;
+  button.onclick = () => showEventDetail(row);
+  return button;
+}
+
+function eventCanEdit(row) {
+  return !!user && (admin || row.korisnik_id === user.id);
+}
+
+function showEventDetail(row) {
+  shownEvent = row;
+  $('eventDetailTitle').textContent = row.naslov;
+  $('eventDetailTime').textContent = eventWhen(row);
+  $('eventDetailAddress').textContent = row.adresa;
+  $('eventDetailPrice').textContent = eventPrice(row);
+  $('eventDetailText').textContent = row.opis;
+  const address = row.adresa + ', Bosna i Hercegovina';
+  $('eventMap').href = 'https://www.google.com/maps/search/?' + new URLSearchParams({api: '1', query: address});
+  $('eventDirections').href = 'https://www.google.com/maps/dir/?' + new URLSearchParams({api: '1', destination: address});
+  $('eventDetailEdit').classList.toggle('hide', !eventCanEdit(row));
+  void showPortalPhoto($('eventDetailPhoto'), row.slika_putanja, eventPhotoBucket);
+  $('eventDetail').showModal();
+}
+
+$('eventDetailClose').onclick = () => $('eventDetail').close();
+$('eventDetailEdit').onclick = () => {
+  if (!shownEvent || !eventCanEdit(shownEvent)) return;
+  $('eventDetail').close();
+  openEventEditor(shownEvent);
+};
+
+function makeEventCard(row) {
+  const card = document.createElement('article');
+  card.className = 'listing';
+  const title = document.createElement('h3');
+  title.append(eventTitleButton(row));
+  const time = document.createElement('p');
+  time.textContent = eventWhen(row);
+  const details = document.createElement('p');
+  details.className = 'small muted';
+  details.textContent = row.adresa + ' · ' + eventPrice(row);
+  card.append(title, time, details);
+  return card;
+}
+
+async function loadHomeEvents() {
+  const version = ++homeEventVersion;
+  const {data, error} = await supabase.from(eventTable).select(eventColumns)
+    .gt('aktivno_do', 'now').order('pocinje_u').order('id').limit(5);
+  if (version !== homeEventVersion) return;
+  const list = $('homeEvents');
+  list.replaceChildren();
+  if (error || !data?.length) {
+    const item = document.createElement('li');
+    item.className = 'small muted';
+    item.textContent = error ? 'Događaji trenutno nisu dostupni.' : 'Još nema najavljenih događaja.';
+    list.append(item);
+    return;
+  }
+  for (const row of data) {
+    const item = document.createElement('li');
+    const date = document.createElement('span');
+    date.className = 'small muted';
+    date.textContent = publishedAt(row.pocinje_u) + ' · ' + row.adresa;
+    item.append(eventTitleButton(row), date);
+    list.append(item);
+  }
+}
+
+function eventQuery() {
+  return supabase.from(eventTable).select(user ? eventColumns + ',korisnik_id' : eventColumns);
+}
+
+function showEventMode(mode) {
+  eventMode = mode;
+  const version = ++eventVersion;
+  const isCalendar = mode === 'calendar';
+  $('eventCalendar').classList.toggle('hide', !isCalendar);
+  $('eventListPanel').classList.toggle('hide', isCalendar);
+  document.querySelectorAll('[data-event-mode]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.eventMode === mode));
+  });
+  if (isCalendar) {
+    calendarMonth ||= eventLocalInput(new Date()).slice(0, 7);
+    void loadEventCalendar(version);
+    return;
+  }
+  eventCursor = null;
+  $('eventList').replaceChildren();
+  $('eventMore').classList.add('hide');
+  void loadEventList(version);
+}
+
+async function loadEventList(version) {
+  const past = eventMode === 'past';
+  const sort = past ? 'aktivno_do' : 'pocinje_u';
+  const more = $('eventMore');
+  const status = $('eventListStatus');
+  more.disabled = true;
+  status.textContent = 'Učitavam događaje…';
+  let query = eventQuery();
+  query = past ? query.lte('aktivno_do', 'now') : query.gt('aktivno_do', 'now');
+  if (eventCursor) {
+    const op = past ? 'lt' : 'gt';
+    const value = eventCursor[sort];
+    query = query.or(sort + '.' + op + '.' + value +
+      ',and(' + sort + '.eq.' + value + ',id.' + op + '.' + eventCursor.id + ')');
+  }
+  const {data, error} = await query.order(sort, {ascending: !past})
+    .order('id', {ascending: !past}).limit(eventPageSize + 1);
+  if (version !== eventVersion || current !== eventPage) return;
+  more.disabled = false;
+  if (error) {
+    status.textContent = 'Događaji se nisu učitali.';
+    more.textContent = 'Pokušaj ponovo';
+    more.classList.remove('hide');
+    return;
+  }
+  const rows = data.slice(0, eventPageSize);
+  status.textContent = !eventCursor && !rows.length
+    ? (past ? 'Još nema prošlih događaja.' : 'Još nema najavljenih događaja.')
+    : '';
+  for (const row of rows) $('eventList').append(makeEventCard(row));
+  if (rows.length) eventCursor = rows.at(-1);
+  more.textContent = 'Učitaj još';
+  more.classList.toggle('hide', data.length <= eventPageSize);
+}
+
+function eventMonthBy(month, delta) {
+  const d = new Date(month + '-01T00:00:00Z');
+  d.setUTCMonth(d.getUTCMonth() + delta);
+  return d.toISOString().slice(0, 7);
+}
+
+function eventRowsForDay(date) {
+  const next = new Date(date + 'T00:00:00Z');
+  next.setUTCDate(next.getUTCDate() + 1);
+  const end = Date.parse(sarajevoDayStart(next.toISOString().slice(0, 10)));
+  const start = Date.parse(sarajevoDayStart(date));
+  return calendarRows.filter(row => Date.parse(row.pocinje_u) < end && Date.parse(row.aktivno_do) > start);
+}
+
+function showEventCalendarDay(date) {
+  $('eventCalendarGrid').querySelectorAll('[data-event-date]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.eventDate === date));
+  });
+  const panel = $('eventCalendarDay');
+  const title = document.createElement('h3');
+  title.textContent = eventFullDate(date);
+  panel.replaceChildren(title);
+  const rows = eventRowsForDay(date);
+  if (!rows.length) {
+    const empty = document.createElement('p');
+    empty.className = 'small muted';
+    empty.textContent = 'Nema događaja za ovaj dan.';
+    panel.append(empty);
+  }
+  for (const row of rows) panel.append(makeEventCard(row));
+}
+
+function renderEventCalendar(month) {
+  const start = new Date(month + '-01T00:00:00Z');
+  const days = (Date.parse(eventMonthBy(month, 1) + '-01T00:00:00Z') - start.getTime()) / 86400000;
+  const grid = $('eventCalendarGrid');
+  for (const name of ['Pon', 'Uto', 'Sri', 'Čet', 'Pet', 'Sub', 'Ned']) {
+    const weekday = document.createElement('span');
+    weekday.className = 'event-weekday';
+    weekday.textContent = name;
+    grid.append(weekday);
+  }
+  const before = (start.getUTCDay() + 6) % 7;
+  for (let i = 0; i < before; i++) grid.append(document.createElement('span'));
+  for (let i = 1; i <= days; i++) {
+    const date = month + '-' + String(i).padStart(2, '0');
+    const count = eventRowsForDay(date).length;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'event-day';
+    button.classList.toggle('has-events', count > 0);
+    button.textContent = i;
+    button.dataset.eventDate = date;
+    button.setAttribute('aria-label', eventFullDate(date) + ' Broj događaja: ' + count);
+    if (count) {
+      const number = document.createElement('small');
+      number.textContent = count;
+      button.append(number);
+    }
+    button.onclick = () => showEventCalendarDay(date);
+    grid.append(button);
+  }
+  const today = eventLocalInput(new Date()).slice(0, 10);
+  showEventCalendarDay(today.startsWith(month) ? today : month + '-01');
+}
+
+async function loadEventCalendar(version) {
+  const month = calendarMonth;
+  $('eventMonthLabel').textContent = eventMonthLabel(month);
+  $('eventCalendarGrid').replaceChildren();
+  $('eventCalendarDay').replaceChildren();
+  const status = $('eventCalendarStatus');
+  status.textContent = 'Učitavam kalendar…';
+  const start = sarajevoDayStart(month + '-01');
+  const end = sarajevoDayStart(eventMonthBy(month, 1) + '-01');
+  const rows = [];
+  let offset = 0;
+  for (;;) {
+    const {data, error} = await eventQuery().lt('pocinje_u', end).gt('aktivno_do', start)
+      .order('pocinje_u').order('id').range(offset, offset + 99);
+    if (current !== eventPage || version !== eventVersion) return;
+    if (error) {
+      status.textContent = 'Kalendar se nije učitao. Otvori prikaz ponovo.';
+      return;
+    }
+    rows.push(...data);
+    if (data.length < 100) break;
+    offset += 100;
+  }
+  calendarRows = rows;
+  status.textContent = '';
+  renderEventCalendar(month);
+}
+
+document.querySelectorAll('[data-event-mode]').forEach(button => {
+  button.onclick = () => showEventMode(button.dataset.eventMode);
+});
+$('eventMore').onclick = () => { void loadEventList(eventVersion); };
+$('eventPreviousMonth').onclick = () => {
+  calendarMonth = eventMonthBy(calendarMonth, -1);
+  showEventMode('calendar');
+};
+$('eventNextMonth').onclick = () => {
+  calendarMonth = eventMonthBy(calendarMonth, 1);
+  showEventMode('calendar');
+};
+
+const eventEditor = $('eventEditor');
+const eventForm = $('eventEditorForm');
+const eventPhotoInput = $('eventEditorPhoto');
+const eventRemovePhoto = $('eventRemovePhoto');
+const eventEditorStatus = $('eventEditorStatus');
+
+function eventEditorPreview() {
+  if (eventPreviewUrl) {
+    URL.revokeObjectURL(eventPreviewUrl);
+    eventPreviewUrl = undefined;
+  }
+  const panel = $('eventEditorPreview');
+  newsPhotoRequests.delete(panel);
+  panel.replaceChildren();
+  const file = eventPhotoInput.files[0];
+  if (file) {
+    eventPreviewUrl = URL.createObjectURL(file);
+    const image = document.createElement('img');
+    image.src = eventPreviewUrl;
+    image.alt = 'Odabrana fotografija';
+    panel.append(image);
+  } else if (!eventRemovePhoto.checked) {
+    void showPortalPhoto(panel, eventDraft?.row?.slika_putanja, eventPhotoBucket);
+  }
+}
+
+function openEventEditor(row) {
+  if (eventSaving || eventEditor.open) return;
+  if (!user) {
+    openAuth();
+    message('Prijavi se ili registruj da najaviš događaj.');
+    return;
+  }
+  if (row && !eventCanEdit(row)) return;
+  eventDraft = {id: row?.id || crypto.randomUUID(), row};
+  eventForm.reset();
+  const fields = eventForm.elements;
+  fields.naslov.value = row?.naslov || '';
+  fields.adresa.value = row?.adresa || '';
+  fields.pocinje.value = eventLocalInput(row?.pocinje_u);
+  fields.zavrsava.value = eventLocalInput(row?.zavrsava_u);
+  fields.cijena.value = row?.cijena_km ?? 0;
+  fields.opis.value = row?.opis || '';
+  $('eventEditorTitle').textContent = row ? 'Uredi događaj' : 'Najavi događaj';
+  $('eventSave').textContent = row ? 'Sačuvaj izmjene' : 'Objavi događaj';
+  $('eventRemovePhotoLabel').classList.toggle('hide', !row?.slika_putanja);
+  eventEditorStatus.textContent = '';
+  eventEditor.showModal();
+  eventEditorPreview();
+}
+
+$('eventAdd').onclick = () => openEventEditor();
+$('eventEditorClose').onclick = () => { if (!eventSaving) eventEditor.close(); };
+eventEditor.addEventListener('cancel', e => { if (eventSaving) e.preventDefault(); });
+eventEditor.addEventListener('close', () => {
+  eventDraft = undefined;
+  eventForm.reset();
+  eventEditorPreview();
+});
+eventRemovePhoto.onchange = eventEditorPreview;
+eventPhotoInput.onchange = () => {
+  const file = eventPhotoInput.files[0];
+  eventEditorStatus.textContent = '';
+  if (file && (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 20 * 1024 * 1024)) {
+    eventPhotoInput.value = '';
+    eventEditorStatus.textContent = 'Odaberi JPG, PNG ili WebP fotografiju do 20 MB.';
+  }
+  if (eventPhotoInput.files.length) eventRemovePhoto.checked = false;
+  eventEditorPreview();
+};
+
+eventForm.onsubmit = async e => {
+  e.preventDefault();
+  if (!eventDraft || eventSaving || !user) return;
+  const draft = eventDraft;
+  const owner = user.id;
+  if (draft.row && !eventCanEdit(draft.row)) return;
+
+  const fields = eventForm.elements;
+  const start = eventIsoTime(fields.pocinje.value, draft.row?.pocinje_u);
+  const end = fields.zavrsava.value ? eventIsoTime(fields.zavrsava.value, draft.row?.zavrsava_u) : null;
+  if (!start || (fields.zavrsava.value && !end)) {
+    eventEditorStatus.textContent = 'Provjeri datum i vrijeme u Tesliću. Uneseno vrijeme nije dostupno.';
+    return;
+  }
+  if (end && Date.parse(end) <= Date.parse(start)) {
+    eventEditorStatus.textContent = 'Završetak mora biti poslije početka.';
+    return;
+  }
+
+  const previous = draft.row?.slika_putanja || null;
+  const payload = {
+    naslov: fields.naslov.value.trim(), opis: fields.opis.value.trim(),
+    adresa: fields.adresa.value.trim(), pocinje_u: start, zavrsava_u: end,
+    cijena_km: Number(fields.cijena.value), slika_putanja: eventRemovePhoto.checked ? null : previous,
+  };
+  if (!payload.naslov || !payload.opis || !payload.adresa) {
+    eventEditorStatus.textContent = 'Unesi naziv, adresu i opis događaja.';
+    return;
+  }
+
+  const file = eventPhotoInput.files[0];
+  let uploaded;
+  eventSaving = true;
+  $('eventSave').disabled = true;
+  $('eventEditorClose').disabled = true;
+  eventEditorStatus.textContent = file ? 'Pripremam fotografiju…' : 'Spremam događaj…';
+  try {
+    if (file) {
+      const uri = await optimizeLostPhoto(file);
+      const raw = atob(uri.slice(uri.indexOf(',') + 1));
+      const photo = Uint8Array.from(raw, char => char.charCodeAt(0));
+      if (user?.id !== owner) throw new Error('Prijavi se ponovo da objaviš događaj.');
+      const path = owner + '/' + draft.id + '/' + crypto.randomUUID() + '.jpg';
+      const {error} = await supabase.storage.from(eventPhotoBucket)
+        .upload(path, photo, {contentType: 'image/jpeg', upsert: false});
+      if (error) throw new Error('Fotografija nije sačuvana. Pokušaj ponovo.');
+      uploaded = path;
+      payload.slika_putanja = path;
+    }
+
+    eventEditorStatus.textContent = 'Spremam događaj…';
+    const table = supabase.from(eventTable);
+    let query;
+    if (draft.row) {
+      query = table.update(payload).eq('id', draft.id).eq('naslov', draft.row.naslov)
+        .eq('pocinje_u', draft.row.pocinje_u);
+      query = previous ? query.eq('slika_putanja', previous) : query.is('slika_putanja', null);
+    } else {
+      query = table.insert({id: draft.id, ...payload});
+    }
+    const result = await query.select('id').maybeSingle();
+    if (result.error) {
+      if (result.status >= 400 && result.status < 500 && result.status !== 408) {
+        await cleanupPortalPhoto(uploaded, eventPhotoBucket);
+      }
+      throw new Error('Spremanje nije potvrđeno. Provjeri listu događaja prije ponovnog pokušaja.');
+    }
+    if (!result.data) {
+      await cleanupPortalPhoto(uploaded, eventPhotoBucket);
+      throw new Error('Događaj je u međuvremenu izmijenjen. Ponovo ga otvori.');
+    }
+    const cleaned = !previous || previous === payload.slika_putanja ||
+      await cleanupPortalPhoto(previous, eventPhotoBucket);
+    eventEditor.close();
+    const message = draft.row ? 'Izmjene su sačuvane.' : 'Događaj je objavljen.';
+    $('eventUpdateStatus').textContent = cleaned ? message : message + ' Stara fotografija je ostala u spremištu.';
+    if (current === eventPage) showEventMode(eventMode);
+    void loadHomeEvents();
+  } catch (error) {
+    eventEditorStatus.textContent = error instanceof TypeError
+      ? 'Veza je prekinuta. Provjeri listu događaja prije ponovnog pokušaja.'
+      : error.message;
+  } finally {
+    eventSaving = false;
+    $('eventSave').disabled = false;
+    $('eventEditorClose').disabled = false;
+  }
+};
 
 let postsRequest = 0;
 let lostFilters = {};
@@ -1376,5 +1942,6 @@ loadWeather();setInterval(()=>{if(!document.hidden)loadWeather()},15*60*1000);
 const bars=$('bars');for(let i=0;i<35;i++){const x=document.createElement('i');x.style.setProperty('--h',(10+Math.round(Math.abs(Math.sin(i*1.7)*35)))+'px');bars.appendChild(x)}
 const audio=$('audio');audio.volume=.7;$('volume').oninput=e=>audio.volume=e.target.value/100;$('play').onclick=async()=>{if(!audio.paused){audio.pause();$('play').textContent='▶';$('radioStatus').textContent='Reprodukcija pauzirana.';return}try{await audio.play();$('play').textContent='❚❚';$('radioStatus').textContent='Radio se reproducira.'}catch(e){$('radioStatus').textContent='Stream se ne može direktno reproducirati u ovom pregledniku.'}};audio.onerror=()=>{$('play').textContent='▶';$('radioStatus').textContent='Radio stream trenutno nije dostupan ili preglednik ne podržava HLS.'};
 void loadHomeNews();
+void loadHomeEvents();
 await refreshUser();
 </script></body></html>
