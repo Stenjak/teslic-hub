@@ -1,12 +1,172 @@
 <!doctype html><html lang="bs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teslić Hub – Sve na jednom mjestu</title><style>
-:root{font-family:Arial,Helvetica,sans-serif;color:#102447;background:#f1f7fc}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:#052c62;color:white;display:flex;align-items:center;gap:22px;padding:13px max(18px,3vw);flex-wrap:wrap}.brand{font-size:30px;font-weight:900;white-space:nowrap}.brand span{color:#8ddd18}.brand small{display:block;font-size:11px;font-weight:400}.nav{display:flex;gap:8px;flex-wrap:wrap;flex:1}.nav button,.login{background:transparent;border:0;color:white;padding:12px;border-radius:9px;font-weight:700}.nav button:hover,.nav button.active{background:linear-gradient(#75d900,#178b18)}.login{border:1px solid #b4d2f4}.layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(290px,1fr);gap:16px;padding:16px;max-width:1750px;margin:auto}.hero{height:365px;border-radius:17px;background:linear-gradient(0deg,rgba(0,38,80,.18),transparent),url('panorama.png') center/cover;position:relative;overflow:hidden}.hero-note{position:absolute;bottom:14px;left:18px;background:#062d63d9;color:#fff;border-radius:9px;padding:9px 14px;font-size:13px}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.category{border:0;border-radius:14px;color:#fff;text-align:left;min-height:106px;padding:16px;display:flex;gap:10px;align-items:center;box-shadow:0 4px 10px #153c6920}.category b{font-size:19px}.category small{display:block;margin-top:7px}.category .emoji{font-size:38px}.blue{background:linear-gradient(120deg,#087bdf,#053a88)}.green{background:linear-gradient(120deg,#0ba839,#075f0e)}.panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel,.sidebox{background:#fff;border:1px solid #c6dced;border-radius:15px;padding:18px;box-shadow:0 2px 8px #163c6110}.panel h2,.sidebox h2{font-size:21px;margin:0 0 15px}.muted{color:#66778d}.empty{padding:25px 10px;color:#61758b;text-align:center}.side{display:flex;flex-direction:column;gap:14px}.emergency{border:1px solid #f33535}.emergency h2{background:#e5091a;color:white;margin:-18px -18px 12px;padding:13px 17px;border-radius:13px 13px 0 0}.emergency a{display:flex;justify-content:space-between;padding:11px 4px;color:#122950;text-decoration:none;font-weight:700;border-bottom:1px solid #e1e9f2}.emergency a strong{font-size:26px}.radio{background:linear-gradient(140deg,#064b9b,#052356);color:white}.radio h2{margin-bottom:4px}.radio .live{color:#fff;background:#e51d35;border-radius:30px;padding:5px 12px;font-size:12px;float:right}.bars{display:flex;align-items:end;height:52px;gap:4px;margin:15px 0}.bars i{width:8px;background:#71e321;border-radius:3px;height:var(--h)}.controls{display:flex;gap:13px;align-items:center}.controls button{background:#64c90d;color:white;border:0;border-radius:50%;width:48px;height:48px;font-size:20px}.controls input{min-width:0;flex:1}.action{background:linear-gradient(120deg,#39b71b,#006f0d);color:white;border:0;border-radius:12px;padding:15px;font-size:17px;font-weight:700;text-align:left}.weather{background:#e0f1ff}.footer{text-align:center;padding:30px;color:#12612d;font-size:20px;font-weight:700}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 17px}.toolbar input,.toolbar select,.form input,.form select,.form textarea{border:1px solid #bfd0df;border-radius:9px;padding:12px;background:white;min-width:0}.toolbar input{flex:1}.primary{background:#0878d8;border:0;color:white;border-radius:9px;padding:12px 18px;font-weight:700}.listing{border-top:1px solid #e0eaf2;padding:15px 0}.listing h3{margin:0 0 7px}.listing p{margin:4px 0}.form{display:grid;gap:12px}.form textarea{min-height:110px;resize:vertical}.hide{display:none}.notice{padding:12px;border-radius:10px;background:#e8f7e3;color:#225d15}.small{font-size:12px}.navsection{margin:15px 0}.secondary{background:#eaf2fb;border:0;padding:9px 13px;border-radius:8px;color:#15395f}.mobilelinks{display:none}@media(max-width:1100px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr)}.hero{height:320px}}@media(max-width:680px){.top{gap:8px}.brand{font-size:25px}.nav{overflow-x:auto;flex-wrap:nowrap}.nav button{white-space:nowrap;font-size:13px}.layout{padding:9px}.hero{height:215px;background-position:center}.categories,.panels,.side{grid-template-columns:1fr}.category{min-height:80px}.category b{font-size:18px}.hero-note{font-size:11px}}
+:root{font-family:Arial,Helvetica,sans-serif;color:#102447;background:#f1f7fc}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:#052c62;color:white;display:flex;align-items:center;gap:22px;padding:13px max(18px,3vw);flex-wrap:wrap}.brand{font-size:30px;font-weight:900;white-space:nowrap}.brand span{color:#8ddd18}.brand small{display:block;font-size:11px;font-weight:400}.nav{display:flex;gap:8px;flex-wrap:wrap;flex:1}.nav button,.login{background:transparent;border:0;color:white;padding:12px;border-radius:9px;font-weight:700}.nav button:hover,.nav button.active{background:linear-gradient(#75d900,#178b18)}.login{border:1px solid #b4d2f4}.layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(290px,1fr);gap:16px;padding:16px;max-width:1750px;margin:auto}.hero{height:365px;border-radius:17px;background:linear-gradient(0deg,rgba(0,38,80,.18),transparent),url('https://stenjak.github.io/teslic-hub/panorama.png') center/cover;position:relative;overflow:hidden}.hero-note{position:absolute;bottom:14px;left:18px;background:#062d63d9;color:#fff;border-radius:9px;padding:9px 14px;font-size:13px}.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.category{border:0;border-radius:14px;color:#fff;text-align:left;min-height:106px;padding:16px;display:flex;gap:10px;align-items:center;box-shadow:0 4px 10px #153c6920}.category b{font-size:19px}.category small{display:block;margin-top:7px}.category .emoji{font-size:38px}.blue{background:linear-gradient(120deg,#087bdf,#053a88)}.green{background:linear-gradient(120deg,#0ba839,#075f0e)}.panels{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel,.sidebox{background:#fff;border:1px solid #c6dced;border-radius:15px;padding:18px;box-shadow:0 2px 8px #163c6110}.panel h2,.sidebox h2{font-size:21px;margin:0 0 15px}.muted{color:#66778d}.empty{padding:25px 10px;color:#61758b;text-align:center}.side{display:flex;flex-direction:column;gap:14px}.emergency{border:1px solid #f33535}.emergency h2{background:#e5091a;color:white;margin:-18px -18px 12px;padding:13px 17px;border-radius:13px 13px 0 0}.emergency a{display:flex;justify-content:space-between;padding:11px 4px;color:#122950;text-decoration:none;font-weight:700;border-bottom:1px solid #e1e9f2}.emergency a strong{font-size:26px}.radio{background:linear-gradient(140deg,#064b9b,#052356);color:white}.radio h2{margin-bottom:4px}.radio .live{color:#fff;background:#e51d35;border-radius:30px;padding:5px 12px;font-size:12px;float:right}.bars{display:flex;align-items:end;height:52px;gap:4px;margin:15px 0}.bars i{width:8px;background:#71e321;border-radius:3px;height:var(--h)}.controls{display:flex;gap:13px;align-items:center}.controls button{background:#64c90d;color:white;border:0;border-radius:50%;width:48px;height:48px;font-size:20px}.controls input{min-width:0;flex:1}.action{background:linear-gradient(120deg,#39b71b,#006f0d);color:white;border:0;border-radius:12px;padding:15px;font-size:17px;font-weight:700;text-align:left}.weather{background:#e0f1ff}.footer{text-align:center;padding:30px;color:#12612d;font-size:20px;font-weight:700}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 17px}.toolbar input,.toolbar select,.form input,.form select,.form textarea{border:1px solid #bfd0df;border-radius:9px;padding:12px;background:white;min-width:0}.toolbar input{flex:1}.primary{background:#0878d8;border:0;color:white;border-radius:9px;padding:12px 18px;font-weight:700}.listing{border-top:1px solid #e0eaf2;padding:15px 0}.listing h3{margin:0 0 7px}.listing p{margin:4px 0}.form{display:grid;gap:12px}.form textarea{min-height:110px;resize:vertical}.hide{display:none}.notice{padding:12px;border-radius:10px;background:#e8f7e3;color:#225d15}.small{font-size:12px}.navsection{margin:15px 0}.secondary{background:#eaf2fb;border:0;padding:9px 13px;border-radius:8px;color:#15395f}.mobilelinks{display:none}@media(max-width:1100px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr)}.hero{height:320px}}@media(max-width:680px){.top{gap:8px}.brand{font-size:25px}.nav{overflow-x:auto;flex-wrap:nowrap}.nav button{white-space:nowrap;font-size:13px}.layout{padding:9px}.hero{height:215px;background-position:center}.categories,.panels,.side{grid-template-columns:1fr}.category{min-height:80px}.category b{font-size:18px}.hero-note{font-size:11px}}
 
 .newbadge{display:inline-block;background:#1a9b32;color:white;font-size:11px;padding:4px 7px;border-radius:6px;vertical-align:middle;margin-left:7px}.listing-actions{display:flex;gap:8px;margin-top:9px}.danger{background:#b91c1c;color:white;border:0;padding:8px 12px;border-radius:8px}.authbox{background:white;border:1px solid #c6dced;border-radius:14px;padding:18px;margin:12px 16px;max-width:520px}.authbox input{display:block;width:100%;padding:12px;margin:9px 0;border:1px solid #bfd0df;border-radius:8px}.authbox button{margin:4px}.message{margin:10px 0;font-size:14px}.error{color:#b91c1c}.success{color:#176d28}
 
 .photo-picker{border:1px dashed #8eafcc;border-radius:12px;padding:14px;background:#f5faff}.photo-picker input{max-width:100%;margin-top:8px}.photo-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.photo-preview img{width:90px;height:75px;object-fit:cover;border-radius:8px}.photo-help{font-size:12px;color:#52667c}.photo-tile{width:132px;background:white;border:1px solid #c6dced;border-radius:10px;padding:7px}.photo-tile.main{border:2px solid #219b3a}.photo-tile img{width:100%;height:92px;object-fit:cover}.photo-tile button{width:100%;font-size:12px;margin-top:5px;padding:6px;border-radius:6px;border:0;background:#eaf2fb;color:#15395f}.photo-tile .remove-photo{background:#fee2e2;color:#991b1b}.photo-tile strong{display:block;font-size:12px;color:#176d28;margin-top:5px}.photo-gallery{display:flex;gap:8px;align-items:start;flex-wrap:wrap;margin:12px 0}.photo-gallery img{width:110px;height:90px;object-fit:cover;border-radius:9px;cursor:pointer}.photo-gallery img:first-child{width:min(100%,360px);height:220px}.photo-modal{position:fixed;inset:0;background:#071323ee;z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:16px}.photo-modal.hide{display:none}.photo-modal img{max-width:95vw;max-height:80vh;object-fit:contain}.photo-modal button{margin:12px;background:#fff;color:#102447;border:0;border-radius:9px;padding:9px 16px}
- .job-fields{display:grid;gap:12px;padding:14px;background:#f2f8ff;border:1px solid #c6dced;border-radius:12px}.job-fields label{font-weight:700;font-size:14px}.job-fields input,.job-fields select{width:100%;margin-top:6px;border:1px solid #bfd0df;border-radius:9px;padding:12px;background:#fff}.job-meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.job-chip{display:inline-block;background:#e7f3ff;color:#064b9b;border-radius:20px;padding:6px 10px;font-size:13px;font-weight:700}.job-card{padding:19px 0}.job-card h3{font-size:21px}.job-company{font-weight:700;color:#075f31;margin:7px 0} .business-fields{display:grid;gap:12px;padding:14px;background:#f1fbf5;border:1px solid #b8e3ca;border-radius:12px}.business-fields label{font-weight:700;font-size:14px}.business-fields input,.business-fields select{display:block;width:100%;margin-top:6px;border:1px solid #bfd0df;border-radius:9px;padding:12px;background:white}.business-company{color:#075f31;font-weight:700}.business-chip{display:inline-block;background:#e5f6e9;color:#12612d;border-radius:20px;padding:6px 10px;font-size:13px;font-weight:700;margin:4px 0}.business-details{display:grid;gap:5px;margin:10px 0;color:#3b5169;font-size:14px}.business-details a{color:#075aa6;overflow-wrap:anywhere} .hide{display:none!important}.weather-headline{display:flex;align-items:center;gap:13px;font-size:40px;margin:7px 0}.weather-headline strong{font-size:35px}.weather-days{display:grid;gap:7px;margin:15px 0}.weather-day{display:grid;grid-template-columns:1fr 1.5fr auto;gap:6px;align-items:center;border-top:1px solid #bfd9ed;padding:10px 0;font-size:13px}.weather-day strong{white-space:nowrap}.weather a{color:#075aa6}</style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel"><h2>📰 Najnovije vijesti iz Teslića</h2><p class="muted">Ovdje ćemo prikazivati provjerene lokalne vijesti kada povežemo izvor.</p><button class="secondary" data-page="Vijesti">Pogledaj vijesti →</button></div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2><div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><div id="results"></div></div><div id="formArea" class="hide"><form class="form" id="postForm"><div id="businessFields" class="business-fields hide"><label for="businessCategory">🏷️ Djelatnost firme<select id="businessCategory"><option value="">Odaberi djelatnost</option><option>Ugostiteljstvo</option><option>Trgovina</option><option>Građevina</option><option>Usluge</option><option>Auto-servis i transport</option><option>Zdravstvo i ljepota</option><option>Obrazovanje</option><option>Turizam</option><option>Proizvodnja</option><option>Poljoprivreda</option><option>Ostalo</option></select></label><label for="businessHours">🕒 Radno vrijeme<input id="businessHours" maxlength="180" placeholder="Npr. Pon–Pet 08:00–17:00, Sub 09:00–14:00"></label><label for="businessEmail">✉️ E-mail firme<input id="businessEmail" type="email" maxlength="150" placeholder="Npr. info@firma.ba"></label><label for="businessWeb">🌐 Web-stranica<input id="businessWeb" type="url" maxlength="250" placeholder="https://www.firma.ba"></label></div><div id="jobFields" class="job-fields hide"><label for="jobCompany">🏢 Naziv firme<input id="jobCompany" maxlength="120" placeholder="Npr. Firma Teslić d.o.o."></label><label for="jobType">🕒 Vrsta zaposlenja<select id="jobType"><option value="">Odaberi vrstu zaposlenja</option><option value="Puno radno vrijeme">Puno radno vrijeme</option><option value="Nepuno radno vrijeme">Nepuno radno vrijeme</option><option value="Povremeni posao">Povremeni posao</option><option value="Praksa">Praksa</option></select></label></div><input name="title" required maxlength="100" placeholder="Naslov objave"><textarea name="description" required maxlength="2000" placeholder="Opis"></textarea><input name="contact" required maxlength="100" placeholder="Kontakt (telefon ili e-mail)"><input name="location" maxlength="100" placeholder="Lokacija (npr. Teslić)"><div id="adPhotos" class="photo-picker hide"><label for="photoFiles"><b>📷 Fotografije oglasa (do 5)</b></label><input id="photoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="photo-help">Najviše 5 fotografija. Možeš odabrati glavnu. Svaka fotografija do 2 MB; automatski ćemo pokušati smanjiti veće slike.</p><div id="photoPreview" class="photo-preview"></div><p id="photoStatus" class="photo-help" role="status"></p></div><select id="lostType" class="hide"><option value="izgubljeno">Izgubljeno</option><option value="nadjeno">Nađeno</option></select><button class="primary" id="savePost">Objavi javno</button><button type="button" class="secondary" id="cancel">Odustani</button></form><p class="small muted">Objava će biti javno vidljiva odmah nakon slanja. Ne objavljuj privatne podatke drugih osoba.</p></div></section></div><aside class="side"><section class="sidebox emergency"><h2>☎ Hitni brojevi – 24/7</h2><a href="tel:122">🛡️ Policija <strong>122</strong></a><a href="tel:124">🚑 Hitna pomoć <strong>124</strong></a><a href="tel:123">🚒 Vatrogasci <strong>123</strong></a></section><section class="sidebox radio"><span class="live">● UŽIVO</span><h2>🎙️ Radio Studio M Teslić</h2><p class="small">Lokalni radio • Slušaj uživo</p><div class="bars" id="bars"></div><div class="controls"><button id="play" aria-label="Pokreni radio">▶</button><span>🔊</span><input id="volume" type="range" min="0" max="100" value="70" aria-label="Jačina zvuka"></div><p id="radioStatus" class="small">Pritisni ▶ za pokušaj reprodukcije.</p><audio id="audio" preload="none" src="https://stream.leftor.com/proxy/studiom2/m3u8"></audio></section><section class="sidebox weather"><h2>🌤️ Vrijeme u Tesliću</h2><div id="weatherNow" aria-live="polite"><p class="muted">Učitavam vremensku prognozu...</p></div><div id="weatherDays" class="weather-days"></div><p id="weatherUpdated" class="small muted"></p><button id="weatherRefresh" class="secondary" type="button">🔄 Osvježi prognozu</button><p class="small muted">Podaci: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p></section></aside></main><footer class="footer">♡ Teslić – naš grad, naša zajednica</footer><div class="photo-modal hide" id="photoModal" role="dialog" aria-label="Pregled fotografije"><button id="closePhoto" type="button">✕ Zatvori</button><img id="photoLarge" alt="Fotografija oglasa"></div><script type="module">
+ .job-fields{display:grid;gap:12px;padding:14px;background:#f2f8ff;border:1px solid #c6dced;border-radius:12px}.job-fields label{font-weight:700;font-size:14px}.job-fields input,.job-fields select{width:100%;margin-top:6px;border:1px solid #bfd0df;border-radius:9px;padding:12px;background:#fff}.job-meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.job-chip{display:inline-block;background:#e7f3ff;color:#064b9b;border-radius:20px;padding:6px 10px;font-size:13px;font-weight:700}.job-card{padding:19px 0}.job-card h3{font-size:21px}.job-company{font-weight:700;color:#075f31;margin:7px 0} .business-fields{display:grid;gap:12px;padding:14px;background:#f1fbf5;border:1px solid #b8e3ca;border-radius:12px}.business-fields label{font-weight:700;font-size:14px}.business-fields input,.business-fields select{display:block;width:100%;margin-top:6px;border:1px solid #bfd0df;border-radius:9px;padding:12px;background:white}.business-company{color:#075f31;font-weight:700}.business-chip{display:inline-block;background:#e5f6e9;color:#12612d;border-radius:20px;padding:6px 10px;font-size:13px;font-weight:700;margin:4px 0}.business-details{display:grid;gap:5px;margin:10px 0;color:#3b5169;font-size:14px}.business-details a{color:#075aa6;overflow-wrap:anywhere} .hide{display:none!important}.weather-headline{display:flex;align-items:center;gap:13px;font-size:40px;margin:7px 0}.weather-headline strong{font-size:35px}.weather-days{display:grid;gap:7px;margin:15px 0}.weather-day{display:grid;grid-template-columns:1fr 1.5fr auto;gap:6px;align-items:center;border-top:1px solid #bfd9ed;padding:10px 0;font-size:13px}.weather-day strong{white-space:nowrap}.weather a{color:#075aa6}.form#lostForm > label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.form#lostForm > label > :is(input, select, textarea) {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.lost-filters {
+  margin: 12px 0 20px;
+}
+.lost-filter-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 10px;
+}
+.lost-filter-fields label {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.lost-filter-fields :is(input, select) {
+  box-sizing: border-box;
+  width: 100%;
+}
+.lost-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lost-contact-dialog {
+  box-sizing: border-box;
+  width: min(540px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  padding: 20px;
+  border: 1px solid #bfd0df;
+  border-radius: 14px;
+  color: #102441;
+}
+.lost-contact-dialog::backdrop {
+  background: rgba(8, 32, 59, .45);
+}
+#lostContactForm > label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+#lostContactForm > label > :is(input, textarea) {
+  width: 100%;
+  box-sizing: border-box;
+}
+#lostPhotoPicker {
+  min-width: 0;
+  border: 1px solid #bfd0df;
+  border-radius: 12px;
+  padding: 12px;
+}
+#lostPhotoPicker input {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.lost-photo-gallery {
+  min-height: 1px;
+  margin: 10px 0;
+}
+</style></head><body><header class="top"><div class="brand">Teslić <span>Hub</span><small>Zajednica • Informacije • Oglasi • Pomoć</small></div><nav class="nav" id="nav"><button class="active" data-page="home">🏠 Početna</button><button data-page="Poslovi">💼 Poslovi</button><button data-page="Oglasi">🏷️ Oglasi</button><button data-page="Biznisi">🏪 Lokalne firme</button><button data-page="Izgubljeno – Nađeno">🔎 Izgubljeno – Nađeno</button><button data-page="Vijesti">📰 Vijesti</button><button data-page="Događaji">📅 Događaji</button></nav><button class="login" id="account">👤 Prijava / Registracija</button></header><section class="authbox hide" id="authBox"><h2>👤 Prijava / Registracija</h2><form id="authForm"><input id="authEmail" type="email" required placeholder="E-mail adresa" autocomplete="email"><input id="authPassword" type="password" required minlength="8" placeholder="Lozinka (najmanje 8 znakova)" autocomplete="current-password"><button class="primary" type="submit" id="signIn">Prijavi se</button><button class="secondary" type="button" id="signUp">Registruj se</button><button class="secondary" type="button" id="resetPassword">Zaboravljena lozinka</button><button class="secondary" type="button" id="closeAuth">Zatvori</button></form><p class="message" id="authMessage" role="status"></p></section><main class="layout"><div><div class="hero" id="hero"><div class="hero-note">Ilustrativna panorama • Pravoslavna crkva • Katolička crkva • Džamija</div></div><section class="categories" id="categories"><button class="category blue" data-page="Poslovi"><span class="emoji">💼</span><span><b>Poslovi u Tesliću</b><small>Ponude i potražnja za posao</small></span></button><button class="category green" data-page="Oglasi"><span class="emoji">🛒</span><span><b>Oglasi</b><small>Kupi, prodaj, zamijeni</small></span></button><button class="category blue" data-page="Biznisi"><span class="emoji">🏪</span><span><b>Lokalne firme</b><small>Pronađi firme i usluge</small></span></button><button class="category green" data-page="Izgubljeno – Nađeno"><span class="emoji">🔎</span><span><b>Izgubljeno – Nađeno</b><small>Prijavi izgubljene stvari</small></span></button></section><section id="homepanels" class="panels"><div class="panel"><h2>📰 Najnovije vijesti iz Teslića</h2><p class="muted">Ovdje ćemo prikazivati provjerene lokalne vijesti kada povežemo izvor.</p><button class="secondary" data-page="Vijesti">Pogledaj vijesti →</button></div><div class="panel"><h2>📅 Događaji u Tesliću</h2><p class="muted">Najave događaja i okupljanja u Tesliću uskoro.</p><button class="secondary" data-page="Događaji">Svi događaji →</button></div></section><section class="panel hide" id="content"><h2 id="pageTitle"></h2><div id="listingArea"><div class="toolbar"><input id="search" placeholder="Pretraži objave..."><button class="primary" id="add">+ Dodaj objavu</button></div><form class="form lost-filters hide" id="lostFilters" aria-label="Pretraga prijava">
+  <div class="lost-filter-fields">
+    <label>Naziv predmeta<input name="naslov" type="search" maxlength="120"></label>
+    <label>Kategorija<select name="kategorija"><option value="">Sve kategorije</option></select></label>
+    <label>Lokacija<input name="lokacija" type="search" maxlength="120"></label>
+    <label>Datum prijave<input name="datum" type="date" min="2000-01-01" max="2099-12-31"></label>
+    <label>Vrsta prijave
+      <select name="tip">
+        <option value="">Sve vrste</option>
+        <option value="izgubljeno">Izgubljeno</option>
+        <option value="nadjeno">Nađeno</option>
+      </select>
+    </label>
+  </div>
+  <div class="lost-filter-actions">
+    <button class="primary" type="submit">Pretraži</button>
+    <button class="secondary" type="reset">Poništi filtere</button>
+  </div>
+</form>
+<div id="results" aria-live="polite"></div>
+<section id="lostAdminPanel" class="hide" aria-labelledby="lostAdminHeading">
+  <h3 id="lostAdminHeading">Upravljanje prijavama</h3>
+  <p id="lostAdminStatus" role="status"></p>
+  <button class="secondary" type="button" id="lostAdminRefresh">Osvježi prijave</button>
+  <h4>Prijave na čekanju</h4>
+  <div id="lostPending"></div>
+  <h4>Aktivne prijave</h4>
+  <div id="lostActive"></div>
+  <details>
+    <summary>Arhiva prijava</summary>
+    <div id="lostArchive"></div>
+  </details>
+</section>
+</div><dialog class="lost-contact-dialog" id="lostContactDialog" aria-labelledby="lostContactTitle">
+  <h3 id="lostContactTitle">Kontaktiraj putem portala</h3>
+  <p id="lostContactListing"></p>
+  <form class="form" id="lostContactForm">
+    <label>Tvoje ime<input name="ime" required autocomplete="name" maxlength="100"></label>
+    <label>Tvoj e-mail<input name="email" type="email" required autocomplete="email" maxlength="254" aria-describedby="lostContactPrivacy"></label>
+    <label>Poruka<textarea name="poruka" required maxlength="2000"></textarea></label>
+    <p class="small muted" id="lostContactPrivacy">Tvoj e-mail bit će dostupan prijavitelju za odgovor. Adrese se ne prikazuju na portalu.</p>
+    <div id="lostContactChallenge"></div>
+    <p id="lostContactStatus" role="status"></p>
+    <div class="lost-filter-actions">
+      <button class="primary" type="submit" id="lostContactSend" disabled>Pošalji poruku</button>
+      <button class="secondary" type="button" id="lostContactClose">Zatvori</button>
+    </div>
+  </form>
+</dialog>
+<div id="lostFormArea" class="hide">
+<form class="form" id="lostForm">
+  <label>Vrsta prijave
+    <select name="tip" required>
+      <option value="izgubljeno">Izgubljeno</option>
+      <option value="nadjeno">Nađeno</option>
+    </select>
+  </label>
+  <label>Naziv predmeta<input name="naslov" required maxlength="120"></label>
+  <label>Kategorija
+    <select name="kategorija" required>
+      <option value="">Odaberi kategoriju</option>
+      <option>Ključevi</option>
+      <option>Dokumenti</option>
+      <option>Novčanik</option>
+      <option>Telefon</option>
+      <option>Životinje</option>
+      <option>Ostalo</option>
+    </select>
+  </label>
+  <label>Lokacija<input name="lokacija" required maxlength="120" placeholder="Npr. centar Teslića"></label>
+  <label>Opis<textarea name="opis" required maxlength="3000"></textarea></label>
+  <label>Tvoj e-mail
+    <input name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="lostPrivacy">
+  </label>
+  <p class="small muted" id="lostPrivacy">Tvoj e-mail se čuva privatno. U opisu izostavi lične i kontaktne podatke. Prijava će biti javno vidljiva nakon odobrenja.</p>
+  <fieldset id="lostPhotoPicker">
+    <legend>Fotografije predmeta (neobavezno)</legend>
+    <p class="small muted">Dodaj do tri fotografije. Portal će ih automatski smanjiti. Fotografije ličnih dokumenata i bankovnih kartica su zabranjene.</p>
+    <input id="lostPhotoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple aria-label="Odaberi do tri fotografije">
+    <div class="photo-preview" id="lostPhotoPreview"></div>
+    <button class="secondary hide" id="lostPhotoClear" type="button">Ukloni fotografije</button>
+    <p class="small" id="lostPhotoStatus" role="status"></p>
+  </fieldset>
+  <p class="small muted hide" id="lostDocumentNote">Za lične dokumente unesi samo opis, bez fotografija, JMBG-a ili drugih osjetljivih brojeva.</p>
+  <div id="lostChallenge"></div>
+  <p id="lostFormStatus" role="status"></p>
+  <button class="primary" id="lostSend" type="submit" disabled>Pošalji prijavu</button>
+  <button type="button" class="secondary" id="lostCancel">Nazad na objave</button>
+</form>
+</div><div id="formArea" class="hide"><form class="form" id="postForm"><div id="businessFields" class="business-fields hide"><label for="businessCategory">🏷️ Djelatnost firme<select id="businessCategory"><option value="">Odaberi djelatnost</option><option>Ugostiteljstvo</option><option>Trgovina</option><option>Građevina</option><option>Usluge</option><option>Auto-servis i transport</option><option>Zdravstvo i ljepota</option><option>Obrazovanje</option><option>Turizam</option><option>Proizvodnja</option><option>Poljoprivreda</option><option>Ostalo</option></select></label><label for="businessHours">🕒 Radno vrijeme<input id="businessHours" maxlength="180" placeholder="Npr. Pon–Pet 08:00–17:00, Sub 09:00–14:00"></label><label for="businessEmail">✉️ E-mail firme<input id="businessEmail" type="email" maxlength="150" placeholder="Npr. info@firma.ba"></label><label for="businessWeb">🌐 Web-stranica<input id="businessWeb" type="url" maxlength="250" placeholder="https://www.firma.ba"></label></div><div id="jobFields" class="job-fields hide"><label for="jobCompany">🏢 Naziv firme<input id="jobCompany" maxlength="120" placeholder="Npr. Firma Teslić d.o.o."></label><label for="jobType">🕒 Vrsta zaposlenja<select id="jobType"><option value="">Odaberi vrstu zaposlenja</option><option value="Puno radno vrijeme">Puno radno vrijeme</option><option value="Nepuno radno vrijeme">Nepuno radno vrijeme</option><option value="Povremeni posao">Povremeni posao</option><option value="Praksa">Praksa</option></select></label></div><input name="title" required maxlength="100" placeholder="Naslov objave"><textarea name="description" required maxlength="2000" placeholder="Opis"></textarea><input name="contact" required maxlength="100" placeholder="Kontakt (telefon ili e-mail)"><input name="location" maxlength="100" placeholder="Lokacija (npr. Teslić)"><div id="adPhotos" class="photo-picker hide"><label for="photoFiles"><b>📷 Fotografije oglasa (do 5)</b></label><input id="photoFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="photo-help">Najviše 5 fotografija. Možeš odabrati glavnu. Svaka fotografija do 2 MB; automatski ćemo pokušati smanjiti veće slike.</p><div id="photoPreview" class="photo-preview"></div><p id="photoStatus" class="photo-help" role="status"></p></div><select id="lostType" class="hide"><option value="izgubljeno">Izgubljeno</option><option value="nadjeno">Nađeno</option></select><button class="primary" id="savePost">Objavi javno</button><button type="button" class="secondary" id="cancel">Odustani</button></form><p class="small muted">Objava će biti javno vidljiva odmah nakon slanja. Ne objavljuj privatne podatke drugih osoba.</p></div></section></div><aside class="side"><section class="sidebox emergency"><h2>☎ Hitni brojevi – 24/7</h2><a href="tel:122">🛡️ Policija <strong>122</strong></a><a href="tel:124">🚑 Hitna pomoć <strong>124</strong></a><a href="tel:123">🚒 Vatrogasci <strong>123</strong></a></section><section class="sidebox radio"><span class="live">● UŽIVO</span><h2>🎙️ Radio Studio M Teslić</h2><p class="small">Lokalni radio • Slušaj uživo</p><div class="bars" id="bars"></div><div class="controls"><button id="play" aria-label="Pokreni radio">▶</button><span>🔊</span><input id="volume" type="range" min="0" max="100" value="70" aria-label="Jačina zvuka"></div><p id="radioStatus" class="small">Pritisni ▶ za pokušaj reprodukcije.</p><audio id="audio" preload="none" src="https://stream.leftor.com/proxy/studiom2/m3u8"></audio></section><section class="sidebox weather"><h2>🌤️ Vrijeme u Tesliću</h2><div id="weatherNow" aria-live="polite"><p class="muted">Učitavam vremensku prognozu...</p></div><div id="weatherDays" class="weather-days"></div><p id="weatherUpdated" class="small muted"></p><button id="weatherRefresh" class="secondary" type="button">🔄 Osvježi prognozu</button><p class="small muted">Podaci: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></p></section></aside></main><footer class="footer">♡ Teslić – naš grad, naša zajednica</footer><div class="photo-modal hide" id="photoModal" role="dialog" aria-label="Pregled fotografije"><button id="closePhoto" type="button">✕ Zatvori</button><img id="photoLarge" alt="Fotografija oglasa"></div><script type="module">
 import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 const supabase=createClient('https://mdwzlyfzioxlavkthzul.supabase.co','sb_publishable_s1CpP6P94Urmfu4w6dJtFQ_-qh-CXi5');
+const lostPage = 'Izgubljeno – Nađeno';
+const lostEndpoint = 'https://mdwzlyfzioxlavkthzul.supabase.co/functions/v1/zaprimi-izgubljeno-nadjeno';
+const lostSiteKey = '0x4AAAAAAGS_pJT70HYXafvB';
 const sections=['Poslovi','Oglasi','Biznisi','Izgubljeno – Nađeno'];
 const tables={'Poslovi':'poslovi','Oglasi':'oglasi','Biznisi':'biznisi','Izgubljeno – Nađeno':'izgubljeno_nadjeno'};
 const $=id=>document.getElementById(id);
@@ -14,15 +174,84 @@ let current='home',user=null,admin=false,posts=[],editingId=null;let photoUrls=[
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function message(txt,bad=false){$('authMessage').textContent=txt;$('authMessage').className='message '+(bad?'error':'success')}
 function openAuth(){ $('authBox').classList.remove('hide');$('authBox').scrollIntoView({behavior:'smooth',block:'start'}) }
-async function refreshUser(){const {data:{user:u}}=await supabase.auth.getUser();user=u;admin=false;if(user){const {data}=await supabase.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();admin=!!data} $('account').textContent=user?'👤 '+(user.email||'Račun')+' · Odjava':'👤 Prijava / Registracija';if(tables[current])render()}
+async function refreshUser(){const {data:{user:u}}=await supabase.auth.getUser();user=u;admin=false;if(user){const {data}=await supabase.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();admin=!!data} $('account').textContent=user?'👤 '+(user.email||'Račun')+' · Odjava':'👤 Prijava / Registracija';if(tables[current])render();void loadLostAdmin()}
 $('account').onclick=async()=>{if(user){if(confirm('Želiš li se odjaviti?')){await supabase.auth.signOut();await refreshUser()}}else openAuth()};
 $('closeAuth').onclick=()=>$('authBox').classList.add('hide');
 $('authForm').onsubmit=async e=>{e.preventDefault();const email=$('authEmail').value.trim(),password=$('authPassword').value;message('Prijavljujem...');const {error}=await supabase.auth.signInWithPassword({email,password});if(error){message('Prijava nije uspjela: '+error.message,true);return}message('Uspješno si prijavljen/a.');$('authBox').classList.add('hide');await refreshUser()};
 $('signUp').onclick=async()=>{const email=$('authEmail').value.trim(),password=$('authPassword').value;if(!email||password.length<8){message('Unesi e-mail i lozinku od najmanje 8 znakova.',true);return}message('Šaljem zahtjev za registraciju...');const {error}=await supabase.auth.signUp({email,password,options:{emailRedirectTo:'https://stenjak.github.io/teslic-hub/'}});message(error?'Registracija nije uspjela: '+error.message:'Provjeri e-mail i potvrdi registraciju putem linka.',!!error)};
 $('resetPassword').onclick=async()=>{const email=$('authEmail').value.trim();if(!email){message('Prvo unesi e-mail adresu.',true);return}const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:'https://stenjak.github.io/teslic-hub/'});message(error?error.message:'Ako račun postoji, dobit ćeš e-mail za resetovanje lozinke.',!!error)};
 supabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>refreshUser(),0)});
-async function navigate(page){clearPhotoSelection();current=page;editingId=null;$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
-async function loadPosts(){if(!tables[current])return;const page=current;const {data,error}=await supabase.from(tables[page]).select('*').eq('status','odobreno').order('kreirano',{ascending:false}).limit(100);if(current!==page)return;if(error){$('results').textContent='Greška pri učitavanju: '+error.message;return}posts=data||[];render();await loadPublicPhotos()}
+async function navigate(page){hideLostForm();clearPhotoSelection();posts=[];stopLostPhotoObserver($('results'));$('results').textContent='';current=page;postsRequest++;editingId=null;$('lostFilters').classList.toggle('hide',page!==lostPage);void loadLostAdmin();$('hero').classList.toggle('hide',page!=='home');$('categories').classList.toggle('hide',page!=='home');$('homepanels').classList.toggle('hide',page!=='home');$('content').classList.toggle('hide',page==='home');$('pageTitle').textContent=page;$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('search').value='';if(tables[page])await loadPosts();else render();if(page!=='home')$('content').scrollIntoView({behavior:'smooth',block:'start'})}
+let postsRequest = 0;
+let lostFilters = {};
+const sarajevoDateOffset = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Sarajevo',
+  timeZoneName: 'longOffset',
+});
+
+function sarajevoDayStart(date) {
+  const midnight = new Date(date + 'T00:00:00Z');
+  const offset = sarajevoDateOffset.formatToParts(midnight)
+    .find(part => part.type === 'timeZoneName').value.slice(3);
+  return new Date(date + 'T00:00:00' + offset).toISOString();
+}
+
+function applyLostFilters(query, filters) {
+  for (const column of ['naslov', 'lokacija']) {
+    const value = filters[column]?.trim();
+    if (value) {
+      const literal = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      query = query.filter(column, 'imatch', literal);
+    }
+  }
+  for (const column of ['kategorija', 'tip']) {
+    if (filters[column]) query = query.eq(column, filters[column]);
+  }
+  if (filters.datum) {
+    const next = new Date(filters.datum + 'T00:00:00Z');
+    next.setUTCDate(next.getUTCDate() + 1);
+    query = query
+      .gte('kreirano', sarajevoDayStart(filters.datum))
+      .lt('kreirano', sarajevoDayStart(next.toISOString().slice(0, 10)));
+  }
+  return query;
+}
+
+async function loadPosts() {
+  const page = current;
+  if (!tables[page]) return;
+  const request = ++postsRequest;
+  const lost = page === lostPage;
+  let query = supabase.from(tables[page])
+    .select(lost ? 'id,naslov,opis,kategorija,lokacija,tip,kreirano,istice_u,slike' : '*')
+    .eq('status', 'odobreno');
+  if (lost) query = applyLostFilters(query, lostFilters);
+  const {data, error} = await query.order('kreirano', {ascending: false}).limit(100);
+  if (request !== postsRequest || current !== page) return;
+  if (error) {
+    $('results').textContent = 'Greška pri učitavanju: ' + error.message;
+    return;
+  }
+  posts = data || [];
+  render();
+  await loadPublicPhotos();
+}
+
+const lostFilterForm = $('lostFilters');
+for (const option of $('lostForm').elements.kategorija.options) {
+  if (option.value) lostFilterForm.elements.kategorija.append(new Option(option.text, option.value));
+}
+lostFilterForm.addEventListener('submit', event => {
+  event.preventDefault();
+  lostFilters = Object.fromEntries(new FormData(lostFilterForm));
+  $('results').textContent = 'Pretražujem prijave…';
+  void loadPosts();
+});
+lostFilterForm.addEventListener('reset', () => {
+  lostFilters = {};
+  $('results').textContent = 'Učitavam prijave…';
+  void loadPosts();
+});
 const photoCache=new Map();
 function photoPaths(p){return Array.isArray(p.slike)?p.slike.filter(x=>typeof x==='string'&&x.startsWith(p.korisnik_id+'/')).slice(0,5):[]}
 async function loadPublicPhotos(){
@@ -91,12 +320,561 @@ function publishedAt(value){
   const part=type=>parts.find(x=>x.type===type)?.value||'';
   return `${part('day')}-${part('month')}-${part('year')} u ${part('hour')}:${part('minute')}`;
 }
-function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported?'':'none';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+'<p>'+esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden')+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+'</p>':'')+((own||admin)?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!</div>'}
-document.addEventListener('click',async e=>{const pic=e.target.closest('[data-photo]');if(pic){$('photoLarge').src=pic.dataset.photo;$('photoModal').classList.remove('hide');return}const b=e.target.closest('[data-page]');if(b){navigate(b.dataset.page);return}const del=e.target.closest('[data-delete]');if(del){const id=del.dataset.delete,p=posts.find(x=>x.id===id);if(!p||!user||!(admin||p.korisnik_id===user.id))return;if(!confirm('Trajno obrisati ovu objavu?'))return;const {error}=await supabase.from(tables[current]).delete().eq('id',id);if(error)alert('Brisanje nije uspjelo: '+error.message);else await loadPosts()}const edit=e.target.closest('[data-edit]');if(edit){const p=posts.find(x=>x.id===edit.dataset.edit);if(!p||!user||p.korisnik_id!==user.id)return;editingId=p.id;$('postForm').elements.title.value=title(p);$('postForm').elements.description.value=p.opis||'';$('postForm').elements.contact.value=p.kontakt||p.telefon||p.email||'';$('postForm').elements.location.value=p.lokacija||p.adresa||'Teslić';$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('lostType').value=p.tip||'izgubljeno';$('savePost').textContent='Sačuvaj izmjene';setPhotoForm();setJobForm();setBusinessForm();if(current==='Biznisi'){$('businessCategory').value=p.kategorija||'';$('businessHours').value=p.radno_vrijeme||'';$('businessEmail').value=p.email||'';$('businessWeb').value=p.web_stranica||''}if(current==='Poslovi'){$('jobCompany').value=p.firma||'';$('jobType').value=p.vrsta_zaposlenja||''}if(current==='Oglasi')prepareExistingPhotos(p);$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')}});
+function render(){if(current==='home')return;const supported=!!tables[current];$('add').style.display=supported?'':'none';$('search').style.display=supported&&current!==lostPage?'':'none';$('add').textContent=current===lostPage?'Prijavi izgubljeno ili nađeno':'+ Dodaj objavu';if(!supported){$('results').innerHTML='<div class="empty">Ovaj dio portala pripremamo. Uskoro više informacija.</div>';return}const q=current===lostPage?'':$('search').value.toLowerCase();const list=posts.filter(p=>(title(p)+' '+p.opis+' '+(p.lokacija||p.adresa||'')+' '+(p.kategorija||'')).toLowerCase().includes(q));$('results').innerHTML=list.length?list.map(p=>{const fresh=p.kreirano&&Date.now()-new Date(p.kreirano).getTime()<48*3600*1000&&Date.now()>=new Date(p.kreirano).getTime();const own=user&&p.korisnik_id===user.id;const urls=current==='Oglasi'?(photoCache.get(p.id)||[]):[];const jobInfo=current==='Poslovi'?'<p class="job-company">🏢 '+esc(p.firma||'Firma nije navedena')+'</p><div class="job-meta"><span class="job-chip">💼 '+esc(p.vrsta_zaposlenja||'Vrsta zaposlenja nije navedena')+'</span></div>':'';const businessInfo=current==='Biznisi'?'<div class="business-chip">🏷️ '+esc(p.kategorija||'Ostale djelatnosti')+'</div><div class="business-details">'+(p.radno_vrijeme?'<span>🕒 '+esc(p.radno_vrijeme)+'</span>':'')+(p.telefon?'<span>📞 '+esc(p.telefon)+'</span>':'')+(p.email?'<span>✉️ <a href="mailto:'+encodeURIComponent(p.email)+'">'+esc(p.email)+'</a></span>':'')+(p.web_stranica&&/^https?:\/\//i.test(p.web_stranica)?'<span>🌐 <a href="'+esc(p.web_stranica)+'" target="_blank" rel="noopener noreferrer">Web-stranica firme</a></span>':'')+'</div>':'';const gallery=urls.length?'<div class="photo-gallery">'+urls.map((url,i)=>'<img src="'+esc(url)+'" alt="Fotografija '+(i+1)+'" data-photo="'+esc(url)+'">').join('')+'</div>':(current==='Oglasi'&&photoPaths(p).length?'<p class="small muted">Fotografije trenutno nisu dostupne za prikaz.</p>':'');return '<article class="listing"'+(current==='Poslovi'?' style="padding:19px 0"':'')+'><h3>'+esc(title(p))+(fresh?'<span class="newbadge">NOVO</span>':'')+'</h3>'+jobInfo+businessInfo+gallery+(current===lostPage&&lostPhotoPaths(p).length?'<div class="photo-gallery lost-photo-gallery" data-lost-gallery="'+esc(p.id)+'"></div>':'')+'<p>' +esc(p.opis)+'</p><p class="muted">📍 '+esc(p.lokacija||p.adresa||'Teslić')+(current===lostPage?'':' · Kontakt: '+esc(p.kontakt||p.telefon||p.email||'Nije naveden'))+'</p><p class="small muted">📅 Objavljeno: '+esc(publishedAt(p.kreirano))+'</p>'+(p.tip?'<p class="small">'+(p.tip==='nadjeno'?'Nađeno':'Izgubljeno')+(p.kategorija?' · '+esc(p.kategorija):'')+'</p>':'')+(current===lostPage&&p.istice_u?'<button class="secondary" type="button" data-lost-contact="'+esc(p.id)+'">Kontaktiraj putem portala</button>':'')+((current!==lostPage&&(own||admin))?'<div class="listing-actions">'+''+(own?'<button class="secondary" data-edit="'+esc(p.id)+'">✏️ Uredi</button> ':'')+'<button class="danger" data-delete="'+esc(p.id)+'">Obriši</button></div>':'')+'</article>'}).join(''):'<div class="empty">'+(current===lostPage&&Object.values(lostFilters).some(value=>value.trim())?'Nema prijava koje odgovaraju pretrazi.':'Još nema objava u ovoj rubrici. Budi prvi koji će dodati objavu!')+'</div>';if(current===lostPage)observeLostPhotos($('results'),list)}
+document.addEventListener('click',async e=>{const contact=e.target.closest('[data-lost-contact]');if(contact){const post=posts.find(p=>p.id===contact.dataset.lostContact);if(current===lostPage&&post)void openLostContact(post);return}const pic=e.target.closest('[data-photo]');if(pic){$('photoLarge').src=pic.dataset.photo;$('photoModal').classList.remove('hide');return}const b=e.target.closest('[data-page]');if(b){navigate(b.dataset.page);return}const del=e.target.closest('[data-delete]');if(del){const id=del.dataset.delete,p=posts.find(x=>x.id===id);if(!p||!user||!(admin||p.korisnik_id===user.id))return;if(!confirm('Trajno obrisati ovu objavu?'))return;const {error}=await supabase.from(tables[current]).delete().eq('id',id);if(error)alert('Brisanje nije uspjelo: '+error.message);else await loadPosts()}const edit=e.target.closest('[data-edit]');if(edit){const p=posts.find(x=>x.id===edit.dataset.edit);if(!p||!user||p.korisnik_id!==user.id)return;editingId=p.id;$('postForm').elements.title.value=title(p);$('postForm').elements.description.value=p.opis||'';$('postForm').elements.contact.value=p.kontakt||p.telefon||p.email||'';$('postForm').elements.location.value=p.lokacija||p.adresa||'Teslić';$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('lostType').value=p.tip||'izgubljeno';$('savePost').textContent='Sačuvaj izmjene';setPhotoForm();setJobForm();setBusinessForm();if(current==='Biznisi'){$('businessCategory').value=p.kategorija||'';$('businessHours').value=p.radno_vrijeme||'';$('businessEmail').value=p.email||'';$('businessWeb').value=p.web_stranica||''}if(current==='Poslovi'){$('jobCompany').value=p.firma||'';$('jobType').value=p.vrsta_zaposlenja||''}if(current==='Oglasi')prepareExistingPhotos(p);$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')}});
+let lostAdminRequest = 0;
+let lostAdminSaving = false;
+
+async function loadLostAdmin(message = '') {
+  const request = ++lostAdminRequest;
+  const panel = $('lostAdminPanel');
+  const status = $('lostAdminStatus');
+  const visible = current === lostPage && admin;
+  panel.classList.toggle('hide', !visible);
+  for (const id of ['lostPending', 'lostActive', 'lostArchive']) {
+    stopLostPhotoObserver($(id));
+    $(id).replaceChildren();
+  }
+  status.textContent = '';
+  if (!visible) return;
+
+  status.textContent = message || 'Učitavam prijave…';
+  const [pending, active, archive] = await Promise.all([
+    supabase.from(tables[lostPage])
+      .select('id,naslov,opis,kategorija,lokacija,tip,kreirano,slike')
+      .eq('status', 'na_cekanju')
+      .order('kreirano', {ascending: true})
+      .limit(50),
+    supabase.from(tables[lostPage])
+      .select('id,naslov,opis,kategorija,lokacija,tip,istice_u,slike')
+      .eq('status', 'odobreno')
+      .order('istice_u', {ascending: true, nullsFirst: false})
+      .limit(100),
+    supabase.rpc('arhiva_izgubljeno_nadjeno'),
+  ]);
+  if (request !== lostAdminRequest) return;
+
+  status.textContent = message;
+  renderLostAdminRows('lostPending', pending, 'Nema prijava na čekanju.');
+  renderLostAdminRows('lostActive', active, 'Nema aktivnih prijava.');
+  renderLostAdminRows('lostArchive', archive, 'Arhiva je prazna.');
+}
+
+function renderLostAdminRows(id, response, emptyMessage) {
+  const list = $(id);
+  if (response.error || !response.data?.length) {
+    const text = document.createElement('p');
+    text.className = 'small muted';
+    text.textContent = response.error ? 'Učitavanje nije uspjelo. Osvježi prijave.' : emptyMessage;
+    list.append(text);
+    return;
+  }
+
+  for (const prijava of response.data) {
+    const article = document.createElement('article');
+    article.className = 'listing';
+    const title = document.createElement('h4');
+    title.textContent = prijava.naslov;
+    article.append(title);
+
+    if (prijava.opis) {
+      const description = document.createElement('p');
+      description.textContent = prijava.opis;
+      article.append(description);
+    }
+
+    const details = document.createElement('p');
+    details.className = 'small muted';
+    const deadline = prijava.vraceno_u
+      ? 'Vraćeno vlasniku: ' + publishedAt(prijava.vraceno_u)
+      : prijava.istice_u
+        ? (id === 'lostArchive' ? 'Isteklo: ' : 'Aktivno do: ') + publishedAt(prijava.istice_u)
+        : publishedAt(prijava.kreirano);
+    details.textContent = [
+      prijava.tip === 'nadjeno' ? 'Nađeno' : 'Izgubljeno',
+      prijava.kategorija, prijava.lokacija, deadline,
+    ].filter(Boolean).join(' · ');
+    article.append(details);
+    if (lostPhotoPaths(prijava).length) {
+      const gallery = document.createElement('div');
+      gallery.className = 'photo-gallery lost-photo-gallery';
+      gallery.dataset.lostGallery = prijava.id;
+      article.append(gallery);
+    }
+
+    const actions = id === 'lostPending'
+      ? [['Odobri', 'odobreno', 'primary'], ['Odbij', 'odbijeno', 'danger']]
+      : prijava.vraceno_u
+        ? []
+        : [['Produži za 60 dana', 'produzi', 'secondary'], ['Vraćeno vlasniku', 'vraceno', 'secondary']];
+    if (actions.length) {
+      const controls = document.createElement('div');
+      controls.className = 'listing-actions';
+      for (const [label, action, style] of actions) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = style;
+        button.textContent = label;
+        const cekajFotografije = action === 'odobreno' && lostPhotoPaths(prijava).length > 0;
+        if (cekajFotografije) button.dataset.lostPhotoApproval = '';
+        button.disabled = lostAdminSaving || cekajFotografije;
+        button.onclick = () => upravljajPrijavom(prijava.id, action);
+        controls.append(button);
+      }
+      article.append(controls);
+    }
+    list.append(article);
+  }
+  observeLostPhotos(list, response.data);
+}
+
+const lostAdminActions = {
+  odobreno: {message: 'Prijava je odobrena.'},
+  odbijeno: {prompt: 'Odbiti ovu prijavu?', message: 'Prijava je odbijena.'},
+  produzi: {prompt: 'Produžiti rok za 60 dana?', message: 'Rok je produžen za 60 dana.'},
+  vraceno: {prompt: 'Označiti prijavu kao vraćenu vlasniku i premjestiti je u arhivu?', message: 'Prijava je označena kao vraćena vlasniku.'},
+};
+
+async function upravljajPrijavom(id, action) {
+  if (lostAdminSaving || current !== lostPage || !admin) return;
+  const settings = lostAdminActions[action];
+  if (settings.prompt && !confirm(settings.prompt)) return;
+
+  const request = lostAdminRequest;
+  lostAdminSaving = true;
+  $('lostAdminPanel').querySelectorAll('button').forEach(button => { button.disabled = true; });
+  $('lostAdminStatus').textContent = 'Spremam izmjenu…';
+  const decision = action === 'odobreno' || action === 'odbijeno';
+  let message;
+  try {
+    const {error} = await supabase.rpc(
+      decision ? 'odluci_izgubljeno_nadjeno' : 'upravljaj_izgubljeno_nadjeno',
+      {p_prijava_id: id, [decision ? 'p_odluka' : 'p_radnja']: action},
+    );
+    message = error ? 'Izmjena nije sačuvana. Provjeri stanje prijave i pokušaj ponovo.'
+      : settings.message;
+    if (!error && action !== 'odbijeno' && current === lostPage) void loadPosts();
+  } catch {
+    message = 'Veza je prekinuta. Provjeri stanje prijave prije ponovnog pokušaja.';
+  } finally {
+    lostAdminSaving = false;
+    $('lostAdminRefresh').disabled = false;
+  }
+  if (current === lostPage && admin) {
+    await loadLostAdmin(request === lostAdminRequest ? message : '');
+  }
+}
+
+$('lostAdminRefresh').onclick = () => { void loadLostAdmin(); };
+
+const lostPhotoObservers = new WeakMap();
+
+function lostPhotoPaths(post) {
+  if (!Array.isArray(post.slike)) return [];
+  return post.slike.filter(path => typeof path === 'string' &&
+    /^[a-f0-9-]{36}\/[1-3]\.jpg$/.test(path)).slice(0, 3);
+}
+
+function stopLostPhotoObserver(root) {
+  lostPhotoObservers.get(root)?.disconnect();
+  lostPhotoObservers.delete(root);
+}
+
+async function loadLostGallery(gallery, paths) {
+  const {data, error} = await supabase.storage.from('izgubljeno-nadjeno-slike')
+    .createSignedUrls(paths, 300);
+  if (!gallery.isConnected) return;
+  const images = [];
+  for (const item of data || []) {
+    if (!item.signedUrl || item.error) continue;
+    const image = document.createElement('img');
+    image.src = item.signedUrl;
+    image.alt = 'Fotografija prijave ' + (images.length + 1);
+    image.dataset.photo = item.signedUrl;
+    gallery.append(image);
+    images.push(image);
+  }
+  const approval = gallery.parentElement.querySelector('[data-lost-photo-approval]');
+  const loaded = approval
+    ? (await Promise.all(images.map(image => image.decode().then(() => true, () => false)))).filter(Boolean).length
+    : images.length;
+  if (!gallery.isConnected) return;
+  if (!error && loaded === paths.length && approval) approval.disabled = lostAdminSaving;
+  if (error || loaded < paths.length) {
+    const status = document.createElement('p');
+    status.className = 'small muted';
+    status.textContent = approval
+      ? 'Neke fotografije nisu dostupne za pregled. Osvježi prijave prije odobravanja.'
+      : 'Neke fotografije trenutno nisu dostupne.';
+    gallery.append(status);
+  }
+}
+
+function observeLostPhotos(root, entries) {
+  stopLostPhotoObserver(root);
+  const galleries = [...root.querySelectorAll('[data-lost-gallery]')];
+  if (!galleries.length) return;
+  const paths = new Map(entries.map(entry => [entry.id, lostPhotoPaths(entry)]));
+  const load = gallery => {
+    const files = paths.get(gallery.dataset.lostGallery);
+    if (files?.length) void loadLostGallery(gallery, files);
+  };
+  if (typeof IntersectionObserver !== 'function') {
+    galleries.forEach(load);
+    return;
+  }
+  const observer = new IntersectionObserver(results => {
+    for (const result of results) {
+      if (!result.isIntersecting) continue;
+      observer.unobserve(result.target);
+      load(result.target);
+    }
+  }, {rootMargin: '150px'});
+  lostPhotoObservers.set(root, observer);
+  galleries.forEach(gallery => observer.observe(gallery));
+}
+
+let lostScript;
+let lostWidget;
+let lostToken = '';
+let lostSending = false;
+let lostFormVersion = 0;
+
+function loadTurnstile() {
+  if (!lostScript) {
+    lostScript = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      const failed = () => {
+        clearTimeout(timeout);
+        delete window.onTeslicHubTurnstileLoad;
+        script.remove();
+        reject(new Error('Turnstile nije učitan.'));
+      };
+      const timeout = setTimeout(failed, 15000);
+
+      window.onTeslicHubTurnstileLoad = () => {
+        if (typeof window.turnstile?.render !== 'function') {
+          failed();
+          return;
+        }
+        clearTimeout(timeout);
+        delete window.onTeslicHubTurnstileLoad;
+        resolve(window.turnstile);
+      };
+
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTeslicHubTurnstileLoad';
+      script.async = true;
+      script.onerror = failed;
+      document.head.append(script);
+    }).catch(error => {
+      lostScript = undefined;
+      throw error;
+    });
+  }
+  return lostScript;
+}
+
+const lostContactDialog = $('lostContactDialog');
+const lostContactForm = $('lostContactForm');
+const lostContactSend = $('lostContactSend');
+const lostContactStatus = $('lostContactStatus');
+let lostContact;
+
+function updateContactToken(contact, token, message) {
+  if (lostContact !== contact || !lostContactDialog.open) return;
+  contact.token = token;
+  lostContactSend.disabled = !token || contact.sending;
+  if (!contact.sending) lostContactStatus.textContent = message;
+}
+
+async function openLostContact(post) {
+  if (lostContactDialog.open) return;
+  const contact = {id: post.id, token: '', widget: undefined, sending: false};
+  lostContact = contact;
+  lostContactForm.reset();
+  lostContactSend.classList.remove('hide');
+  lostContactSend.disabled = true;
+  $('lostContactListing').textContent = post.naslov;
+  lostContactStatus.textContent = 'Učitavam provjeru protiv spama…';
+  lostContactDialog.showModal();
+
+  try {
+    const turnstile = await loadTurnstile();
+    if (lostContact !== contact || !lostContactDialog.open) return;
+    lostContactStatus.textContent = 'Dovrši provjeru protiv spama za slanje poruke.';
+    contact.widget = turnstile.render('#lostContactChallenge', {
+      sitekey: lostSiteKey,
+      action: 'izgubljeno_nadjeno_kontakt',
+      size: 'flexible',
+      callback: token => updateContactToken(contact, token, ''),
+      'expired-callback': () => updateContactToken(contact, '', 'Provjera je istekla. Dovrši novu provjeru.'),
+      'error-callback': () => updateContactToken(contact, '', 'Provjera trenutno nije dostupna. Otvori obrazac ponovo.'),
+    });
+  } catch {
+    updateContactToken(contact, '', 'Provjera se nije učitala. Otvori obrazac ponovo.');
+  }
+}
+
+$('lostContactClose').onclick = () => lostContactDialog.close();
+lostContactDialog.addEventListener('cancel', event => {
+  if (lostContact?.sending) event.preventDefault();
+});
+lostContactDialog.addEventListener('close', () => {
+  if (lostContact?.widget !== undefined) window.turnstile.remove(lostContact.widget);
+  lostContact = undefined;
+  lostContactForm.reset();
+});
+
+lostContactForm.onsubmit = async event => {
+  event.preventDefault();
+  const contact = lostContact;
+  if (!contact || contact.sending || !contact.token || current !== lostPage) return;
+
+  const fields = Object.fromEntries(new FormData(lostContactForm));
+  const token = contact.token;
+  contact.sending = true;
+  contact.token = '';
+  lostContactSend.disabled = true;
+  $('lostContactClose').disabled = true;
+  lostContactStatus.textContent = 'Šaljem poruku…';
+
+  try {
+    const response = await fetch(lostEndpoint, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({...fields, radnja: 'kontakt', prijava_id: contact.id, token}),
+      signal: AbortSignal.timeout(22000),
+    });
+    const result = await response.json().catch(() => null);
+    if (!response.ok) throw new Error(result?.message || 'Slanje poruke nije uspjelo.');
+    lostContactForm.reset();
+    if (contact.widget !== undefined) window.turnstile.remove(contact.widget);
+    contact.widget = undefined;
+    lostContactSend.classList.add('hide');
+    lostContactStatus.textContent = result?.message || 'Poruka je zaprimljena.';
+  } catch (error) {
+    lostContactStatus.textContent = error instanceof TypeError || error.name === 'TimeoutError'
+      ? 'Potvrda nije stigla. Sačekaj prije ponovnog pokušaja.'
+      : error.message;
+    if (contact.widget !== undefined) window.turnstile.reset(contact.widget);
+  } finally {
+    contact.sending = false;
+    lostContactSend.disabled = !contact.token;
+    $('lostContactClose').disabled = false;
+  }
+};
+
+const lostPhotoFiles = $('lostPhotoFiles');
+const lostPhotoPreview = $('lostPhotoPreview');
+const lostPhotoStatus = $('lostPhotoStatus');
+const lostPhotoClear = $('lostPhotoClear');
+const lostCategory = $('lostForm').elements.kategorija;
+let lostPhotos = [];
+let lostPhotosBusy = false;
+let lostPhotoVersion = 0;
+
+function clearLostPhotos() {
+  lostPhotoVersion++;
+  lostPhotos = [];
+  lostPhotosBusy = false;
+  lostPhotoFiles.value = '';
+  lostPhotoPreview.replaceChildren();
+  lostPhotoClear.classList.add('hide');
+  lostPhotoStatus.textContent = '';
+  setLostToken(lostToken);
+}
+
+function updateLostPhotoPicker() {
+  const documents = lostCategory.value === 'Dokumenti';
+  $('lostPhotoPicker').classList.toggle('hide', documents);
+  $('lostPhotoPicker').disabled = documents || lostSending;
+  $('lostDocumentNote').classList.toggle('hide', !documents);
+  if (documents) clearLostPhotos();
+}
+
+async function optimizeLostPhoto(file) {
+  const image = await createImageBitmap(file);
+  try {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    for (const maxSide of [1500, 1100, 750]) {
+      const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      for (const quality of [0.82, 0.66]) {
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+        if (!blob || blob.size > 600 * 1024) continue;
+        return await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result));
+          reader.onerror = () => reject(new Error('Fotografija se nije mogla pročitati.'));
+          reader.readAsDataURL(blob);
+        });
+      }
+    }
+    throw new Error('Fotografija je prevelika i nakon smanjivanja.');
+  } finally {
+    image.close();
+  }
+}
+
+lostPhotoFiles.addEventListener('change', async () => {
+  const files = [...lostPhotoFiles.files];
+  clearLostPhotos();
+  if (!files.length) return;
+  if (files.length > 3 || files.some(file => !['image/jpeg', 'image/png', 'image/webp'].includes(file.type))) {
+    lostPhotoStatus.textContent = 'Odaberi najviše tri JPG, PNG ili WebP fotografije.';
+    return;
+  }
+  if (files.some(file => file.size > 20 * 1024 * 1024)) {
+    lostPhotoStatus.textContent = 'Odaberi fotografije manje od 20 MB za smanjivanje.';
+    return;
+  }
+
+  const version = lostPhotoVersion;
+  lostPhotosBusy = true;
+  setLostToken(lostToken);
+  lostPhotoStatus.textContent = 'Smanjujem fotografije…';
+  try {
+    const images = [];
+    for (const file of files) {
+      images.push(await optimizeLostPhoto(file));
+      if (version !== lostPhotoVersion) return;
+    }
+    lostPhotos = images;
+    images.forEach((url, index) => {
+      const preview = document.createElement('img');
+      preview.src = url;
+      preview.alt = 'Odabrana fotografija ' + (index + 1);
+      lostPhotoPreview.append(preview);
+    });
+    lostPhotoClear.classList.remove('hide');
+    lostPhotoStatus.textContent = 'Fotografije su spremne za slanje.';
+  } catch {
+    if (version === lostPhotoVersion) lostPhotoStatus.textContent = 'Fotografije se nisu mogle obraditi. Odaberi ih ponovo.';
+  } finally {
+    if (version === lostPhotoVersion) {
+      lostPhotosBusy = false;
+      setLostToken(lostToken);
+    }
+  }
+});
+
+lostPhotoClear.onclick = clearLostPhotos;
+lostCategory.addEventListener('change', updateLostPhotoPicker);
+
+function setLostToken(token) {
+  lostToken = token;
+  $('lostSend').disabled = !token || lostSending || lostPhotosBusy;
+}
+
+function hideLostForm() {
+  lostFormVersion++;
+  clearLostPhotos();
+  $('lostFormArea').classList.add('hide');
+  if (lostWidget !== undefined) {
+    window.turnstile.remove(lostWidget);
+    lostWidget = undefined;
+  }
+  setLostToken('');
+}
+
+async function openLostForm() {
+  const version = ++lostFormVersion;
+  updateLostPhotoPicker();
+  $('lostSend').classList.remove('hide');
+  $('listingArea').classList.add('hide');
+  $('lostFormArea').classList.remove('hide');
+  $('lostFormStatus').textContent = 'Učitavam provjeru protiv spama…';
+
+  try {
+    const turnstile = await loadTurnstile();
+    if (version !== lostFormVersion) return;
+    $('lostFormStatus').textContent = 'Dovrši provjeru protiv spama za slanje prijave.';
+    lostWidget = turnstile.render('#lostChallenge', {
+      sitekey: lostSiteKey,
+      action: 'izgubljeno_nadjeno',
+      size: 'flexible',
+      callback: token => {
+        if (version !== lostFormVersion) return;
+        setLostToken(token);
+        $('lostFormStatus').textContent = '';
+      },
+      'expired-callback': () => {
+        if (version !== lostFormVersion) return;
+        setLostToken('');
+        $('lostFormStatus').textContent = 'Provjera je istekla. Dovrši novu provjeru.';
+      },
+      'error-callback': () => {
+        if (version !== lostFormVersion) return;
+        setLostToken('');
+        $('lostFormStatus').textContent = 'Provjera trenutno nije dostupna. Osvježi stranicu i pokušaj ponovo.';
+      },
+    });
+  } catch {
+    if (version === lostFormVersion) {
+      $('lostFormStatus').textContent = 'Provjera se nije učitala. Otvori obrazac ponovo.';
+    }
+  }
+}
+
+$('lostCancel').onclick = () => {
+  hideLostForm();
+  $('listingArea').classList.remove('hide');
+};
+
+$('lostForm').onsubmit = async event => {
+  event.preventDefault();
+  if (lostSending || lostPhotosBusy || !lostToken || current !== lostPage) return;
+
+  const version = lostFormVersion;
+  const form = event.currentTarget;
+  const status = $('lostFormStatus');
+  const fields = Object.fromEntries(new FormData(form));
+  if (lostPhotos.length) fields.slike = lostPhotos.map(url => url.slice(url.indexOf(',') + 1));
+  const token = lostToken;
+
+  lostSending = true;
+  updateLostPhotoPicker();
+  setLostToken('');
+  $('lostCancel').disabled = true;
+  status.textContent = 'Šaljem prijavu…';
+  try {
+    const response = await fetch(lostEndpoint, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({...fields, token}),
+    });
+    const result = await response.json().catch(() => null);
+    if (version !== lostFormVersion) return;
+    if (!response.ok) throw new Error(result?.message || 'Slanje prijave nije uspjelo.');
+    form.reset();
+    clearLostPhotos();
+    if (lostWidget !== undefined) window.turnstile.remove(lostWidget);
+    lostWidget = undefined;
+    $('lostSend').classList.add('hide');
+    status.textContent = result?.message || 'Prijava je zaprimljena i čeka odobrenje.';
+  } catch (error) {
+    if (version !== lostFormVersion) return;
+    status.textContent = error instanceof TypeError
+      ? 'Veza je prekinuta. Pokušaj ponovo.'
+      : error.message;
+    if (lostWidget !== undefined) window.turnstile.reset(lostWidget);
+  } finally {
+    lostSending = false;
+    updateLostPhotoPicker();
+    setLostToken(lostToken);
+    $('lostCancel').disabled = false;
+  }
+};
+
 $('search').addEventListener('input',render);
-$('add').onclick=()=>{if(!user){openAuth();message('Prijavi se ili registruj kako bi objavio/la oglas.');return}editingId=null;$('postForm').reset();$('savePost').textContent='Objavi javno';setPhotoForm();setJobForm();setBusinessForm();$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')};
+$('add').onclick=()=>{if(current===lostPage){openLostForm();return}if(!user){openAuth();message('Prijavi se ili registruj kako bi objavio/la oglas.');return}editingId=null;$('postForm').reset();$('savePost').textContent='Objavi javno';setPhotoForm();setJobForm();setBusinessForm();$('lostType').classList.toggle('hide',current!=='Izgubljeno – Nađeno');$('listingArea').classList.add('hide');$('formArea').classList.remove('hide')};
 $('cancel').onclick=()=>{clearPhotoSelection();$('listingArea').classList.remove('hide');$('formArea').classList.add('hide');editingId=null};
-$('postForm').onsubmit=async e=>{e.preventDefault();if(!user){openAuth();return}const f=new FormData(e.target),name=String(f.get('title')||'').trim(),desc=String(f.get('description')||'').trim(),contact=String(f.get('contact')||'').trim(),location=String(f.get('location')||'').trim()||'Teslić';if(!name||!desc||!contact)return;let payload={};if(current==='Biznisi'){const kategorija=$('businessCategory').value,radno_vrijeme=$('businessHours').value.trim(),email=$('businessEmail').value.trim(),web_stranica=$('businessWeb').value.trim();if(!kategorija){alert('Odaberi djelatnost firme.');return}payload={naziv:name,opis:desc,telefon:contact,adresa:location,kategorija,radno_vrijeme,email,web_stranica}}else if(current==='Poslovi'){const firma=$('jobCompany').value.trim(),vrsta=$('jobType').value;if(!firma||!vrsta){alert('Unesi naziv firme i vrstu zaposlenja.');return}payload={naslov:name,opis:desc,kontakt:contact,lokacija:location,firma,vrsta_zaposlenja:vrsta}}else if(current==='Izgubljeno – Nađeno')payload={naslov:name,opis:desc,kontakt:contact,lokacija:location,tip:$('lostType').value};else payload={naslov:name,opis:desc,kontakt:contact,lokacija:location};$('savePost').disabled=true;let error;let newPaths=[];try{if(current==='Oglasi'){const files=[...selectedPhotos];const existing=editingId?[...existingPaths]:[];if(files.length+existing.length>5)throw Error('Oglas može imati najviše 5 fotografija.');if(files.length){$('photoStatus').textContent='Pripremam fotografije...';newPaths=await uploadPhotos(files)}if(editingId||files.length){payload.slike=[...existing,...newPaths];if(pendingMainFile&&files.includes(pendingMainFile)){const mainPath=newPaths[files.indexOf(pendingMainFile)];payload.slike=[mainPath,...payload.slike.filter(x=>x!==mainPath)]}}}if(editingId){({error}=await supabase.from(tables[current]).update(payload).eq('id',editingId).eq('korisnik_id',user.id))}else{payload.korisnik_id=user.id;payload.status='odobreno';({error}=await supabase.from(tables[current]).insert(payload))}if(error)throw Error(error.message)}catch(err){if(newPaths.length)await supabase.storage.from('oglasi-slike').remove(newPaths);alert('Objava nije sačuvana: '+err.message);$('savePost').disabled=false;return}$('savePost').disabled=false;if(error){alert('Objava nije sačuvana: '+error.message);return}editingId=null;e.target.reset();clearPhotoSelection();$('formArea').classList.add('hide');$('listingArea').classList.remove('hide');await loadPosts()};
+$('postForm').onsubmit=async e=>{e.preventDefault();if(current===lostPage)return;if(!user){openAuth();return}const f=new FormData(e.target),name=String(f.get('title')||'').trim(),desc=String(f.get('description')||'').trim(),contact=String(f.get('contact')||'').trim(),location=String(f.get('location')||'').trim()||'Teslić';if(!name||!desc||!contact)return;let payload={};if(current==='Biznisi'){const kategorija=$('businessCategory').value,radno_vrijeme=$('businessHours').value.trim(),email=$('businessEmail').value.trim(),web_stranica=$('businessWeb').value.trim();if(!kategorija){alert('Odaberi djelatnost firme.');return}payload={naziv:name,opis:desc,telefon:contact,adresa:location,kategorija,radno_vrijeme,email,web_stranica}}else if(current==='Poslovi'){const firma=$('jobCompany').value.trim(),vrsta=$('jobType').value;if(!firma||!vrsta){alert('Unesi naziv firme i vrstu zaposlenja.');return}payload={naslov:name,opis:desc,kontakt:contact,lokacija:location,firma,vrsta_zaposlenja:vrsta}}else if(current==='Izgubljeno – Nađeno')payload={naslov:name,opis:desc,kontakt:contact,lokacija:location,tip:$('lostType').value};else payload={naslov:name,opis:desc,kontakt:contact,lokacija:location};$('savePost').disabled=true;let error;let newPaths=[];try{if(current==='Oglasi'){const files=[...selectedPhotos];const existing=editingId?[...existingPaths]:[];if(files.length+existing.length>5)throw Error('Oglas može imati najviše 5 fotografija.');if(files.length){$('photoStatus').textContent='Pripremam fotografije...';newPaths=await uploadPhotos(files)}if(editingId||files.length){payload.slike=[...existing,...newPaths];if(pendingMainFile&&files.includes(pendingMainFile)){const mainPath=newPaths[files.indexOf(pendingMainFile)];payload.slike=[mainPath,...payload.slike.filter(x=>x!==mainPath)]}}}if(editingId){({error}=await supabase.from(tables[current]).update(payload).eq('id',editingId).eq('korisnik_id',user.id))}else{payload.korisnik_id=user.id;payload.status='odobreno';({error}=await supabase.from(tables[current]).insert(payload))}if(error)throw Error(error.message)}catch(err){if(newPaths.length)await supabase.storage.from('oglasi-slike').remove(newPaths);alert('Objava nije sačuvana: '+err.message);$('savePost').disabled=false;return}$('savePost').disabled=false;if(error){alert('Objava nije sačuvana: '+error.message);return}editingId=null;e.target.reset();clearPhotoSelection();$('formArea').classList.add('hide');$('listingArea').classList.remove('hide');await loadPosts()};
 const weatherDescriptions={0:['Vedro','☀️'],1:['Pretežno vedro','🌤️'],2:['Djelimično oblačno','⛅'],3:['Oblačno','☁️'],45:['Magla','🌫️'],48:['Magla','🌫️'],51:['Slaba rosulja','🌦️'],53:['Rosulja','🌦️'],55:['Jaka rosulja','🌧️'],56:['Ledena rosulja','🌧️'],57:['Ledena rosulja','🌧️'],61:['Slaba kiša','🌦️'],63:['Kiša','🌧️'],65:['Jaka kiša','🌧️'],66:['Ledena kiša','🌧️'],67:['Ledena kiša','🌧️'],71:['Slab snijeg','🌨️'],73:['Snijeg','❄️'],75:['Jak snijeg','❄️'],77:['Snježna zrnca','🌨️'],80:['Pljuskovi','🌦️'],81:['Pljuskovi','🌧️'],82:['Jaki pljuskovi','🌧️'],85:['Snježni pljuskovi','🌨️'],86:['Snježni pljuskovi','🌨️'],95:['Grmljavina','⛈️'],96:['Grmljavina i grad','⛈️'],99:['Grmljavina i grad','⛈️']};
 function weatherLabel(code){return weatherDescriptions[code]||['Promjenljivo','🌤️']}
 async function loadWeather(){
