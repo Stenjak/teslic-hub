@@ -748,13 +748,15 @@ const eventDateParts = new Intl.DateTimeFormat('en-GB', {
   timeZone: eventTimeZone, year: 'numeric', month: '2-digit', day: '2-digit',
   hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
 });
-const eventMonthFormat = new Intl.DateTimeFormat('bs-BA', {
-  month: 'long', year: 'numeric', timeZone: 'UTC',
-});
-const eventLongDate = new Intl.DateTimeFormat('bs-BA', {
-  dateStyle: 'full', timeZone: 'UTC',
-});
-const eventMoney = new Intl.NumberFormat('bs-BA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const eventMonths = [
+  'Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni',
+  'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar',
+];
+const eventMonthInDate = [
+  'januara', 'februara', 'marta', 'aprila', 'maja', 'juna',
+  'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra',
+];
+const eventWeekdays = ['Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'];
 const eventPageSize = 20;
 
 let eventMode = 'upcoming';
@@ -790,7 +792,21 @@ function eventIsoTime(value, original) {
 }
 
 function eventPrice(row) {
-  return Number(row.cijena_km) === 0 ? 'Besplatan ulaz' : eventMoney.format(Number(row.cijena_km)) + ' KM';
+  const price = Number(row.cijena_km);
+  if (price === 0) return 'Besplatan ulaz';
+  const [marks, cents] = price.toFixed(2).split('.');
+  return marks.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + cents + ' KM';
+}
+
+function eventMonthLabel(month) {
+  const [year, number] = month.split('-');
+  return eventMonths[Number(number) - 1] + ' ' + year + '.';
+}
+
+function eventFullDate(date) {
+  const day = new Date(date + 'T12:00:00Z');
+  return eventWeekdays[day.getUTCDay()] + ', ' + day.getUTCDate() + '. ' +
+    eventMonthInDate[day.getUTCMonth()] + ' ' + day.getUTCFullYear() + '.';
 }
 
 function eventWhen(row) {
@@ -949,7 +965,7 @@ function showEventCalendarDay(date) {
   });
   const panel = $('eventCalendarDay');
   const title = document.createElement('h3');
-  title.textContent = eventLongDate.format(new Date(date + 'T12:00:00Z'));
+  title.textContent = eventFullDate(date);
   panel.replaceChildren(title);
   const rows = eventRowsForDay(date);
   if (!rows.length) {
@@ -982,7 +998,7 @@ function renderEventCalendar(month) {
     button.classList.toggle('has-events', count > 0);
     button.textContent = i;
     button.dataset.eventDate = date;
-    button.setAttribute('aria-label', eventLongDate.format(new Date(date + 'T12:00:00Z')) + '. Broj događaja: ' + count);
+    button.setAttribute('aria-label', eventFullDate(date) + ' Broj događaja: ' + count);
     if (count) {
       const number = document.createElement('small');
       number.textContent = count;
@@ -997,7 +1013,7 @@ function renderEventCalendar(month) {
 
 async function loadEventCalendar(version) {
   const month = calendarMonth;
-  $('eventMonthLabel').textContent = eventMonthFormat.format(new Date(month + '-01T00:00:00Z'));
+  $('eventMonthLabel').textContent = eventMonthLabel(month);
   $('eventCalendarGrid').replaceChildren();
   $('eventCalendarDay').replaceChildren();
   const status = $('eventCalendarStatus');
